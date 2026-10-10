@@ -18,5 +18,40 @@
     "desc": "Dapatkan penawaran spesial untuk pembelian perdana Anda.",
     "voucher": "ELPARHYPEBanget"
   },
-  "products": []
+  "products": [
+    {
+      "id": "P1791567089359",
+      "active": true,
+      "name": "Scandalaus",
+      "category": "unisex",
+      "desc": "Seger Manis",
+      "notes": "Gula",
+      "img": "https://raw.githubusercontent.com/Ekimaulana7/elpar1/main/data/images/1791567092581_gaultierdivineelixirwomanparfum100ml.jpg",
+      "variants": [
+        {
+          "size": "30ml",
+          "price": 154000
+        }
+      ]
+    },
+    {
+      "id": "P1791567120029",
+      "active": true,
+      "name": "Black Musk",
+      "category": "men",
+      "desc": "Strong, Woody",
+      "notes": "Musk",
+      "img": "https://raw.githubusercontent.com/Ekimaulana7/elpar1/main/data/images/1791567122675_sg1113420122110y3uhr3qayzjvc5.jpg",
+      "variants": [
+        {
+          "size": "100ml",
+          "price": 1500000
+        },
+        {
+          "size": "50",
+          "price": 500000
+        }
+      ]
+    }
+  ]
 }
