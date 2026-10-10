@@ -82,17 +82,16 @@
       </div>
       
       <div class="flex items-center gap-2">
-        <!-- Theme Toggle (Light/Dark) -->
+        <!-- Theme Toggle -->
         <button id="theme-toggle" class="w-8 h-8 flex items-center justify-center text-on-surface hover:text-primary transition-colors">
           <span class="material-symbols-outlined text-[20px]" id="theme-icon">light_mode</span>
         </button>
         
-        <!-- Marketplace Quick Link (Shopee) -->
         <a href="https://shopee.co.id/elpar" target="_blank" class="hidden sm:flex px-2 py-1 rounded-full bg-[#EE4D2D]/10 border border-[#EE4D2D]/30 text-[#EE4D2D] font-bold text-[10px] items-center gap-1 hover:bg-[#EE4D2D]/20 transition-colors">
           <span class="material-symbols-outlined text-[14px]">shopping_bag</span> Shopee
         </a>
 
-        <!-- Ikon Keranjang -->
+        <!-- Cart Button -->
         <button aria-label="Shopping Bag" class="w-10 h-10 relative flex items-center justify-center text-wa-green hover:text-[#1ebd5a] transition-colors" id="open-cart-header">
           <span class="material-symbols-outlined text-[24px]">shopping_cart</span>
           <span class="absolute top-0 right-0 min-w-[16px] h-4 px-1 rounded-full bg-wa-green text-black text-[10px] font-bold flex items-center justify-center leading-none" id="cart-badge-count">0</span>
@@ -111,9 +110,7 @@
             <h2 class="font-serif text-xl text-primary font-bold">ELPAR OFFICIAL</h2>
             <p class="text-[10px] text-on-surface-variant uppercase">Haute Parfumerie</p>
           </div>
-          <button id="drawer-close" class="text-on-surface-variant hover:text-primary">
-            <span class="material-symbols-outlined">close</span>
-          </button>
+          <button id="drawer-close" class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">close</span></button>
         </div>
         <a href="#hero" class="py-2 text-lg text-on-surface hover:text-primary transition-colors" onclick="closeMenuDrawer()">Home</a>
         <a href="#women-series" class="py-2 text-lg text-on-surface hover:text-primary transition-colors" onclick="closeMenuDrawer()">Women Series</a>
@@ -122,7 +119,6 @@
         <a href="#reseller" class="py-2 text-lg text-on-surface hover:text-primary transition-colors" onclick="closeMenuDrawer()">Reseller / Partnership</a>
       </div>
       
-      <!-- Clickable Contacts & Extra Marketplaces -->
       <div class="flex flex-col gap-3 border-t border-outline/20 pt-4 text-xs text-on-surface-variant">
         <a href="https://maps.google.com/?q=Perum+Griya+Utami+2+B18" target="_blank" class="flex items-center gap-2 hover:text-primary transition-colors">
           <span class="material-symbols-outlined text-[16px]">location_on</span> Perum Griya Utami 2 B18
@@ -149,7 +145,7 @@
         <span class="material-symbols-outlined text-[32px]">redeem</span>
       </div>
       <h2 class="font-serif text-2xl text-primary font-bold">GRAND OPENING!</h2>
-      <p class="text-sm text-on-surface">Dapatkan penawaran spesial untuk pembelian pertama Anda bulan ini.</p>
+      <p class="text-sm text-on-surface">Dapatkan penawaran spesial untuk pembelian perdana Anda bulan ini.</p>
       <div class="w-full p-3 border border-dashed border-primary rounded-lg bg-surface-container-low mt-2">
         <span class="text-[10px] text-outline uppercase tracking-widest">Gunakan Kode Voucher:</span>
         <h3 class="text-xl font-bold text-wa-green tracking-widest my-1">ELPARHYPE</h3>
@@ -160,11 +156,47 @@
     </div>
   </div>
 
+  <!-- ================= PRODUCT QUICK VIEW MODAL ================= -->
+  <div class="fixed inset-0 z-[70] pointer-events-none opacity-0 transition-opacity duration-300 flex items-center justify-center px-4" id="product-detail-modal">
+    <div class="absolute inset-0 bg-black/80 backdrop-blur-md" id="product-detail-backdrop"></div>
+    <div class="relative w-full max-w-md bg-surface-container rounded-2xl overflow-hidden flex flex-col z-10 shadow-2xl border border-primary/30 transform scale-95 transition-transform duration-300" id="product-detail-content">
+      <button id="close-detail-btn" class="absolute top-3 right-3 z-20 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 text-white hover:bg-black transition-colors"><span class="material-symbols-outlined text-[18px]">close</span></button>
+      
+      <div class="w-full aspect-[4/3] bg-surface-container-low relative">
+        <img id="detail-img" src="" alt="Product Image" class="w-full h-full object-cover"/>
+      </div>
+      
+      <div class="p-5 flex flex-col gap-3">
+        <div class="flex justify-between items-start">
+          <div>
+            <span id="detail-category" class="text-[10px] text-primary tracking-widest uppercase font-bold">Category</span>
+            <h3 id="detail-title" class="font-serif text-2xl text-on-surface font-bold mt-1">Product Name</h3>
+          </div>
+          <span id="detail-size" class="px-2 py-1 bg-surface-container-high rounded text-[10px] text-on-surface font-bold border border-outline/20">50ml</span>
+        </div>
+        
+        <p id="detail-desc" class="text-sm text-on-surface-variant leading-relaxed"></p>
+        
+        <div class="p-3 bg-surface-container-low rounded-lg border border-outline/10 mt-1">
+          <span class="text-[10px] text-primary uppercase font-bold tracking-wider flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">spa</span> Fragrance Notes:</span>
+          <p id="detail-notes" class="text-xs text-on-surface mt-1.5 leading-relaxed"></p>
+        </div>
+        
+        <div class="flex items-center justify-between mt-2 pt-4 border-t border-outline/10">
+          <span id="detail-price" class="text-xl font-bold text-primary">Rp 0</span>
+          <button id="detail-add-btn" class="h-11 px-6 rounded-xl bg-wa-green text-black font-extrabold text-xs uppercase tracking-wider shadow-[0_0_15px_rgba(37,211,102,0.3)] active:scale-95 transition-transform flex items-center gap-2 hover:bg-[#1ebd5a]">
+            <span class="material-symbols-outlined text-[18px]">add_shopping_cart</span> Beli
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ================= MAIN CONTENT ================= -->
   <main class="flex flex-col w-full pt-24 pb-10 min-h-screen">
     
     <!-- TOAST NOTIFICATION -->
-    <div class="fixed top-24 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-full bg-wa-green text-black text-xs font-bold shadow-2xl opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-2" id="toast-notification">
+    <div class="fixed top-24 left-1/2 -translate-x-1/2 z-[80] px-4 py-2 rounded-full bg-wa-green text-black text-xs font-bold shadow-2xl opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-2" id="toast-notification">
       <span class="material-symbols-outlined text-[16px]">check_circle</span>
       <span id="toast-message">Notifikasi</span>
     </div>
@@ -188,14 +220,12 @@
       </div>
     </section>
 
-    <!-- PERSONAL SCENT FINDER (Filter) -->
+    <!-- PERSONAL SCENT FINDER -->
     <section class="px-5 py-4">
       <div class="p-4 rounded-xl bg-surface-container-low flex flex-col gap-3 shadow-sm border border-outline/10">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2 text-primary">
-            <span class="material-symbols-outlined text-[20px]">tune</span>
-            <span class="text-[10px] tracking-widest uppercase font-bold">PERSONAL SCENT FINDER</span>
-          </div>
+        <div class="flex items-center gap-2 text-primary">
+          <span class="material-symbols-outlined text-[20px]">tune</span>
+          <span class="text-[10px] tracking-widest uppercase font-bold">PERSONAL SCENT FINDER</span>
         </div>
         <div class="flex gap-2 overflow-x-auto pb-1 scrollbar-none" id="filter-pills">
           <button class="filter-tag px-4 py-2 rounded-full text-[10px] tracking-wider uppercase transition-all shrink-0 bg-primary text-on-primary font-bold shadow-sm border border-primary" onclick="filterCategory('all', this)">Semua (All)</button>
@@ -293,12 +323,11 @@
       <div class="flex flex-col items-center gap-4 border-t border-outline/10 pt-6">
         <h2 class="font-serif text-2xl text-primary font-bold tracking-widest">ELPAR</h2>
         
-        <!-- Social & Marketplace Links -->
         <div class="flex gap-4">
-          <a href="https://www.instagram.com/elparofficial/" target="_blank" aria-label="Instagram" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-black transition-colors"><span class="material-symbols-outlined text-[20px]">photo_camera</span></a>
-          <a href="https://shopee.co.id/elpar" target="_blank" aria-label="Shopee" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-[#EE4D2D] hover:bg-[#EE4D2D] hover:text-white transition-colors"><span class="material-symbols-outlined text-[20px]">shopping_bag</span></a>
-          <a href="#" target="_blank" aria-label="Tokopedia" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-[#42b549] hover:bg-[#42b549] hover:text-white transition-colors"><span class="material-symbols-outlined text-[20px]">storefront</span></a>
-          <a href="#" target="_blank" aria-label="TikTok" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-white hover:text-black transition-colors"><span class="material-symbols-outlined text-[20px]">music_note</span></a>
+          <a href="https://www.instagram.com/elparofficial/" target="_blank" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-black transition-colors"><span class="material-symbols-outlined text-[20px]">photo_camera</span></a>
+          <a href="https://shopee.co.id/elpar" target="_blank" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-[#EE4D2D] hover:bg-[#EE4D2D] hover:text-white transition-colors"><span class="material-symbols-outlined text-[20px]">shopping_bag</span></a>
+          <a href="#" target="_blank" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-[#42b549] hover:bg-[#42b549] hover:text-white transition-colors"><span class="material-symbols-outlined text-[20px]">storefront</span></a>
+          <a href="#" target="_blank" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-white hover:text-black transition-colors"><span class="material-symbols-outlined text-[20px]">music_note</span></a>
         </div>
         <a href="https://maps.google.com/?q=Perum+Griya+Utami+2+B18" target="_blank" class="text-xs text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1">
           <span class="material-symbols-outlined text-[14px]">location_on</span> Perum Griya Utami 2 B18
@@ -321,22 +350,17 @@
             <p class="text-[10px] text-wa-green tracking-wider uppercase font-bold">Direct WA Checkout</p>
           </div>
         </div>
-        <button class="text-on-surface-variant hover:text-white" id="close-cart-btn">
-          <span class="material-symbols-outlined text-[24px]">close</span>
-        </button>
+        <button class="text-on-surface-variant hover:text-white" id="close-cart-btn"><span class="material-symbols-outlined text-[24px]">close</span></button>
       </div>
 
-      <!-- Item List Container -->
       <div class="flex-1 overflow-y-auto p-5 flex flex-col gap-3" id="cart-items-list">
-        <!-- Tampilan Empty State (Akan diganti via JS jika ada barang) -->
         <div class="flex flex-col items-center justify-center h-full text-center text-on-surface-variant opacity-70" id="empty-cart-state">
           <span class="material-symbols-outlined text-[64px] mb-2">production_quantity_limits</span>
-          <p class="font-bold text-sm">Keranjang Anda masih kosong.</p>
+          <p class="font-bold text-sm">Keranjang kosong.</p>
           <p class="text-xs">Yuk, temukan parfum favorit Anda!</p>
         </div>
       </div>
 
-      <!-- Cart Footer -->
       <div class="p-5 bg-surface-container-low border-t border-wa-green/20 flex flex-col gap-4 shadow-[0_-10px_20px_rgba(0,0,0,0.1)]">
         <div class="flex justify-between items-center text-sm">
           <span class="text-on-surface-variant">Subtotal Pembelian</span>
@@ -346,7 +370,6 @@
           <span class="material-symbols-outlined text-[22px]">send</span>
           <span>Checkout via WhatsApp</span>
         </button>
-        <p class="text-[10px] text-center text-on-surface-variant">Sistem otomatis mencatat pesanan Anda & membuka WhatsApp Admin.</p>
       </div>
     </div>
   </div>
@@ -378,7 +401,6 @@
         <button id="close-quiz-btn" class="text-on-surface-variant hover:text-white"><span class="material-symbols-outlined">close</span></button>
       </div>
       <h3 class="font-serif text-xl text-on-surface font-bold">Pilih Sensasi Aroma Impian</h3>
-      <p class="text-xs text-on-surface-variant">Temukan parfum ELPAR yang cocok dengan karakter Anda.</p>
       <div class="flex flex-col gap-2 pt-2">
         <button class="p-3 rounded-lg bg-surface-container-low hover:bg-primary/20 text-left transition-colors flex items-center justify-between border border-transparent hover:border-primary/50" onclick="selectQuizAnswer('Wonderose')">
           <span class="text-sm text-on-surface">🌸 Romantis, Floral & Manis</span>
@@ -398,18 +420,18 @@
 
   <!-- ================= JAVASCRIPT LOGIC ================= -->
   <script>
-    // --- Data Produk ---
+    // --- Data Produk Terupdate dengan Size & Notes ---
     const productsData = [
-      { id: 'W01', name: 'Wonderose', category: 'women', price: 185000, desc: 'Sweet Rose & Romantic Floral', img: 'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=500&q=80' },
-      { id: 'W02', name: 'Baby Love', category: 'women', price: 175000, desc: 'Soft Powder & Vanilla Love', img: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=500&q=80' },
-      { id: 'W03', name: 'Red Velvet', category: 'women', price: 195000, desc: 'Warm Gourmet & Creamy Delight', img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=500&q=80' },
+      { id: 'W01', name: 'Wonderose', category: 'women', price: 185000, desc: 'Sweet Rose & Romantic Floral', size: '50ml', notes: 'Top: Pink Pepper • Heart: Damask Rose • Base: White Musk', img: 'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=500&q=80' },
+      { id: 'W02', name: 'Baby Love', category: 'women', price: 175000, desc: 'Soft Powder & Vanilla Love', size: '50ml', notes: 'Top: Bergamot • Heart: Powdery Iris • Base: Vanilla', img: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=500&q=80' },
+      { id: 'W03', name: 'Red Velvet', category: 'women', price: 195000, desc: 'Warm Gourmet & Creamy Delight', size: '50ml', notes: 'Top: Strawberry • Heart: Caramel Cacao • Base: Warm Amber', img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=500&q=80' },
       
-      { id: 'M01', name: 'Black Series', category: 'men', price: 210000, desc: 'Smoky Amber & Intense Leather', img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=500&q=80' },
-      { id: 'M02', name: 'Blue Sea', category: 'men', price: 190000, desc: 'Fresh Aquatic & Citrus Breeze', img: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=500&q=80' },
-      { id: 'M03', name: 'Billionaire', category: 'men', price: 225000, desc: 'Rich Woody & Gold Spices', img: 'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=500&q=80' },
+      { id: 'M01', name: 'Black Series', category: 'men', price: 210000, desc: 'Smoky Amber & Intense Leather', size: '50ml', notes: 'Top: Cardamom • Heart: Rich Leather • Base: Smoky Oud', img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=500&q=80' },
+      { id: 'M02', name: 'Blue Sea', category: 'men', price: 190000, desc: 'Fresh Aquatic & Citrus Breeze', size: '50ml', notes: 'Top: Sea Salt Lemon • Heart: Sage • Base: Cedarwood', img: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=500&q=80' },
+      { id: 'M03', name: 'Billionaire', category: 'men', price: 225000, desc: 'Rich Woody & Gold Spices', size: '50ml', notes: 'Top: Blood Mandarin • Heart: Cinnamon Spices • Base: Patchouli', img: 'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=500&q=80' },
 
-      { id: 'U01', name: 'Summer Collection', category: 'unisex', price: 180000, desc: 'Fresh Citrus & Light Musk', img: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=500&q=80' },
-      { id: 'U02', name: 'Pinky', category: 'unisex', price: 175000, desc: 'Soft Floral & Clean Cotton', img: 'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=500&q=80' }
+      { id: 'U01', name: 'Summer Collection', category: 'unisex', price: 180000, desc: 'Fresh Citrus & Light Musk', size: '50ml', notes: 'Top: Grapefruit • Heart: Lotus Flower • Base: Soft Musk', img: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=500&q=80' },
+      { id: 'U02', name: 'Pinky', category: 'unisex', price: 175000, desc: 'Soft Floral & Clean Cotton', size: '50ml', notes: 'Top: Clean Linen • Heart: Peony • Base: Sandalwood', img: 'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=500&q=80' }
     ];
 
     let cartState = [];
@@ -430,7 +452,7 @@
       document.getElementById(id)?.scrollBy({ left: offset, behavior: 'smooth' });
     }
 
-    // --- Theme Toggle (Light/Dark) ---
+    // --- Theme Toggle ---
     const htmlEl = document.documentElement;
     const themeIcon = document.getElementById('theme-icon');
     document.getElementById('theme-toggle').addEventListener('click', () => {
@@ -438,20 +460,17 @@
       themeIcon.innerText = htmlEl.classList.contains('dark') ? 'light_mode' : 'dark_mode';
     });
 
-    // --- Welcome Pop-up Campaign ---
+    // --- Welcome Pop-up ---
     setTimeout(() => {
       document.getElementById('welcome-modal').classList.remove('opacity-0', 'pointer-events-none');
       document.getElementById('welcome-content').classList.remove('scale-95');
     }, 1500);
-    
-    document.getElementById('close-welcome-btn').addEventListener('click', closeWelcome);
-    document.getElementById('welcome-backdrop').addEventListener('click', closeWelcome);
-    
     function closeWelcome() {
       document.getElementById('welcome-modal').classList.add('opacity-0', 'pointer-events-none');
       document.getElementById('welcome-content').classList.add('scale-95');
     }
-
+    document.getElementById('close-welcome-btn').addEventListener('click', closeWelcome);
+    document.getElementById('welcome-backdrop').addEventListener('click', closeWelcome);
     function copyPromo() {
       navigator.clipboard.writeText('ELPARHYPE');
       showToast('Kode ELPARHYPE disalin!');
@@ -471,10 +490,10 @@
       productsData.forEach(prod => {
         const cardHTML = `
           <div class="snap-start shrink-0 w-[220px] rounded-xl bg-surface-container p-3 flex flex-col gap-2 border border-outline/10 shadow-md transition-transform hover:scale-[1.02]">
-            <div class="relative w-full aspect-[4/5] rounded-lg overflow-hidden bg-surface-container-low">
-              <img src="${prod.img}" alt="${prod.name}" class="w-full h-full object-cover"/>
+            <div class="relative w-full aspect-[4/5] rounded-lg overflow-hidden bg-surface-container-low cursor-pointer" onclick="openProductDetail('${prod.id}')">
+              <img src="${prod.img}" alt="${prod.name}" class="w-full h-full object-cover transition-transform hover:scale-110 duration-500"/>
             </div>
-            <div class="flex flex-col gap-1">
+            <div class="flex flex-col gap-1 cursor-pointer" onclick="openProductDetail('${prod.id}')">
               <h3 class="font-serif text-base text-on-surface font-bold truncate">${prod.name}</h3>
               <p class="text-[11px] text-on-surface-variant line-clamp-1">${prod.desc}</p>
               <span class="text-sm font-bold text-primary mt-1">${formatRupiah(prod.price)}</span>
@@ -489,6 +508,40 @@
         }
       });
     }
+
+    // --- Product Detail Pop-up Logic ---
+    const detailModal = document.getElementById('product-detail-modal');
+    const detailContent = document.getElementById('product-detail-content');
+
+    function openProductDetail(id) {
+      const prod = productsData.find(p => p.id === id);
+      if(!prod) return;
+
+      document.getElementById('detail-img').src = prod.img;
+      document.getElementById('detail-title').innerText = prod.name;
+      document.getElementById('detail-category').innerText = `${prod.category} Series`;
+      document.getElementById('detail-size').innerText = prod.size;
+      document.getElementById('detail-desc').innerText = prod.desc;
+      document.getElementById('detail-notes').innerText = prod.notes;
+      document.getElementById('detail-price').innerText = formatRupiah(prod.price);
+      
+      document.getElementById('detail-add-btn').onclick = () => {
+        addToCart(prod.id);
+        closeProductDetail();
+      };
+
+      detailModal.classList.remove('opacity-0', 'pointer-events-none');
+      detailContent.classList.remove('scale-95');
+    }
+
+    function closeProductDetail() {
+      detailModal.classList.add('opacity-0', 'pointer-events-none');
+      detailContent.classList.add('scale-95');
+    }
+
+    document.getElementById('close-detail-btn').addEventListener('click', closeProductDetail);
+    document.getElementById('product-detail-backdrop').addEventListener('click', closeProductDetail);
+
 
     // --- Cart Logic ---
     function addToCart(id) {
