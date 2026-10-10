@@ -1,1 +1,700 @@
+<!DOCTYPE html>
+<html class="dark" lang="id">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ELPAR CMS - Admin Dashboard</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface": "#131412",
+            "surface-low": "#1b1c1a",
+            "surface-high": "#2a2a28",
+            "primary": "#d4af37", 
+            "on-primary": "#131412",
+            "on-surface": "#e4e2df",
+            "outline": "#99907c",
+          },
+          fontFamily: { sans: ["Plus Jakarta Sans", "sans-serif"] }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { background-color: #131412; color: #e4e2df; overscroll-behavior: none; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #131412; }
+    ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
+    .hidden-view { display: none !important; }
+  </style>
+</head>
+<body class="font-sans antialiased h-screen flex overflow-hidden selection:bg-primary selection:text-black">
 
+  <!-- ================= NOTIFICATION TOAST ================= -->
+  <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-[100] px-4 py-2 rounded-lg bg-green-500 text-black font-bold text-sm shadow-xl opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-2">
+    <span class="material-symbols-outlined text-[18px]">info</span>
+    <span id="toast-msg">Notifikasi</span>
+  </div>
+
+  <!-- ================= 1. LOGIN SCREEN (GATEKEEPER) ================= -->
+  <div id="login-screen" class="fixed inset-0 z-50 bg-surface flex flex-col items-center justify-center p-4">
+    <div class="w-full max-w-md bg-surface-low p-8 rounded-2xl border border-primary/20 shadow-2xl flex flex-col gap-6">
+      <div class="text-center">
+        <span class="material-symbols-outlined text-primary text-[48px]">admin_panel_settings</span>
+        <h1 class="text-2xl font-bold text-primary mt-2">ELPAR CMS</h1>
+        <p class="text-xs text-outline mt-1">Akses eksklusif Owner via GitHub Token</p>
+      </div>
+      <form id="login-form" class="flex flex-col gap-4">
+        <div>
+          <label class="text-xs font-bold text-outline uppercase tracking-wider block mb-1">GitHub Username</label>
+          <input type="text" id="gh-user" required class="w-full bg-surface-high border border-outline/30 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-primary text-white" placeholder="Contoh: elpar-owner">
+        </div>
+        <div>
+          <label class="text-xs font-bold text-outline uppercase tracking-wider block mb-1">Repository Name</label>
+          <input type="text" id="gh-repo" required class="w-full bg-surface-high border border-outline/30 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-primary text-white" placeholder="Contoh: elpar-website">
+        </div>
+        <div>
+          <label class="text-xs font-bold text-outline uppercase tracking-wider block mb-1">Personal Access Token (PAT)</label>
+          <input type="password" id="gh-pat" required class="w-full bg-surface-high border border-outline/30 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-primary text-white" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+        </div>
+        <button type="submit" id="btn-login" class="w-full bg-primary text-on-primary font-bold py-3 rounded-lg mt-2 active:scale-95 transition-transform">
+          Connect to GitHub
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= 2. DASHBOARD LAYOUT ================= -->
+  <div id="dashboard-screen" class="w-full h-full flex hidden-view">
+    
+    <!-- Sidebar -->
+    <aside class="w-64 bg-surface-low border-r border-outline/10 flex flex-col">
+      <div class="p-6 border-b border-outline/10">
+        <h2 class="text-xl font-bold text-primary tracking-widest">ELPAR CMS</h2>
+        <p class="text-[10px] text-outline uppercase tracking-widest mt-1">v1.0 • Connected</p>
+      </div>
+      <nav class="flex-1 p-4 flex flex-col gap-2 overflow-y-auto">
+        <button onclick="switchTab('products')" class="tab-btn flex items-center gap-3 w-full p-3 rounded-lg text-sm font-semibold text-white bg-surface-high border border-primary/30 transition-colors" data-tab="products">
+          <span class="material-symbols-outlined text-[18px]">inventory_2</span> Katalog Produk
+        </button>
+        <button onclick="switchTab('settings')" class="tab-btn flex items-center gap-3 w-full p-3 rounded-lg text-sm font-semibold text-outline hover:bg-surface-high hover:text-white transition-colors" data-tab="settings">
+          <span class="material-symbols-outlined text-[18px]">settings</span> Global & Kontak
+        </button>
+        <button onclick="switchTab('whatsapp')" class="tab-btn flex items-center gap-3 w-full p-3 rounded-lg text-sm font-semibold text-outline hover:bg-surface-high hover:text-white transition-colors" data-tab="whatsapp">
+          <span class="material-symbols-outlined text-[18px]">chat</span> Template WA
+        </button>
+        <button onclick="switchTab('promo')" class="tab-btn flex items-center gap-3 w-full p-3 rounded-lg text-sm font-semibold text-outline hover:bg-surface-high hover:text-white transition-colors" data-tab="promo">
+          <span class="material-symbols-outlined text-[18px]">campaign</span> Kampanye Pop-up
+        </button>
+      </nav>
+      <div class="p-4 border-t border-outline/10">
+        <button onclick="commitToGitHub()" id="btn-commit" class="w-full bg-primary text-black font-bold py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-yellow-400 active:scale-95 transition-all shadow-lg">
+          <span class="material-symbols-outlined text-[20px]">cloud_upload</span> Commit & Deploy
+        </button>
+        <button onclick="logout()" class="w-full mt-2 text-xs text-red-400 font-bold py-2 hover:underline">Logout Keluar</button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 bg-surface p-8 overflow-y-auto relative">
+      
+      <!-- Loading Overlay inside Main -->
+      <div id="main-loader" class="absolute inset-0 bg-surface/80 z-40 flex flex-col items-center justify-center hidden-view">
+        <span class="material-symbols-outlined text-primary text-4xl animate-spin">refresh</span>
+        <p class="mt-2 text-sm font-bold text-primary">Sinkronisasi dengan GitHub...</p>
+      </div>
+
+      <!-- TAB 1: PRODUCTS -->
+      <section id="tab-products" class="tab-content">
+        <div class="flex justify-between items-center mb-6">
+          <div>
+            <h2 class="text-2xl font-bold text-white">Katalog Produk</h2>
+            <p class="text-xs text-outline">Kelola daftar parfum, ukuran ML, harga, dan foto.</p>
+          </div>
+          <button onclick="openProductModal()" class="bg-primary text-black px-4 py-2 rounded-lg font-bold text-sm flex items-center gap-1 active:scale-95">
+            <span class="material-symbols-outlined text-[18px]">add</span> Tambah Produk
+          </button>
+        </div>
+        <!-- Grid Produk -->
+        <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <!-- Render via JS -->
+        </div>
+      </section>
+
+      <!-- TAB 2: SETTINGS & CONTACT -->
+      <section id="tab-settings" class="tab-content hidden-view">
+        <h2 class="text-2xl font-bold text-white mb-6">Pengaturan Global & Kontak</h2>
+        <div class="bg-surface-low border border-outline/10 p-6 rounded-xl flex flex-col gap-4 max-w-2xl">
+          <div>
+            <label class="text-xs font-bold text-outline block mb-1">Running Text (Header Atas)</label>
+            <input type="text" id="set-running" class="w-full bg-surface-high border border-outline/20 rounded px-3 py-2 text-sm text-white focus:border-primary outline-none">
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs font-bold text-outline block mb-1">Nomor WA Order (Tanpa +)</label>
+              <input type="number" id="set-wa-order" class="w-full bg-surface-high border border-outline/20 rounded px-3 py-2 text-sm text-white focus:border-primary outline-none">
+            </div>
+            <div>
+              <label class="text-xs font-bold text-outline block mb-1">Nomor WA Reseller (Tanpa +)</label>
+              <input type="number" id="set-wa-reseller" class="w-full bg-surface-high border border-outline/20 rounded px-3 py-2 text-sm text-white focus:border-primary outline-none">
+            </div>
+          </div>
+          <div>
+            <label class="text-xs font-bold text-outline block mb-1">Teks Alamat (Tampil di menu/footer)</label>
+            <input type="text" id="set-address" class="w-full bg-surface-high border border-outline/20 rounded px-3 py-2 text-sm text-white focus:border-primary outline-none">
+          </div>
+          <div>
+            <label class="text-xs font-bold text-outline block mb-1">Link Google Maps</label>
+            <input type="url" id="set-maps" class="w-full bg-surface-high border border-outline/20 rounded px-3 py-2 text-sm text-white focus:border-primary outline-none">
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs font-bold text-outline block mb-1">Link Instagram</label>
+              <input type="url" id="set-ig" class="w-full bg-surface-high border border-outline/20 rounded px-3 py-2 text-sm text-white focus:border-primary outline-none">
+            </div>
+            <div>
+              <label class="text-xs font-bold text-outline block mb-1">Link Shopee</label>
+              <input type="url" id="set-shopee" class="w-full bg-surface-high border border-outline/20 rounded px-3 py-2 text-sm text-white focus:border-primary outline-none">
+            </div>
+          </div>
+          <button onclick="saveTempData()" class="mt-4 bg-surface-high border border-primary text-primary px-4 py-2 rounded-lg font-bold text-sm self-start">Simpan Draft</button>
+        </div>
+      </section>
+
+      <!-- TAB 3: WHATSAPP TEMPLATE -->
+      <section id="tab-whatsapp" class="tab-content hidden-view">
+        <h2 class="text-2xl font-bold text-white mb-6">Template Pesan WhatsApp</h2>
+        <div class="bg-surface-low border border-outline/10 p-6 rounded-xl flex flex-col gap-4 max-w-2xl">
+          <p class="text-xs text-primary mb-2">Teks List Produk (1, 2, 3) dan Total Harga akan disisipkan otomatis di antara Sapaan dan Penutup.</p>
+          <div>
+            <label class="text-xs font-bold text-outline block mb-1">Sapaan Awal (WA Greeting)</label>
+            <textarea id="wa-greeting" rows="3" class="w-full bg-surface-high border border-outline/20 rounded px-3 py-2 text-sm text-white focus:border-primary outline-none"></textarea>
+          </div>
+          <div>
+            <label class="text-xs font-bold text-outline block mb-1">Penutup (WA Footer)</label>
+            <textarea id="wa-footer" rows="2" class="w-full bg-surface-high border border-outline/20 rounded px-3 py-2 text-sm text-white focus:border-primary outline-none"></textarea>
+          </div>
+          <button onclick="saveTempData()" class="mt-2 bg-surface-high border border-primary text-primary px-4 py-2 rounded-lg font-bold text-sm self-start">Simpan Draft</button>
+        </div>
+      </section>
+
+      <!-- TAB 4: PROMO / CAMPAIGN -->
+      <section id="tab-promo" class="tab-content hidden-view">
+        <h2 class="text-2xl font-bold text-white mb-6">Kampanye Promo (Welcome Pop-up)</h2>
+        <div class="bg-surface-low border border-outline/10 p-6 rounded-xl flex flex-col gap-4 max-w-xl">
+          <div class="flex items-center gap-3 mb-2">
+            <label class="text-sm font-bold text-white">Status Pop-up:</label>
+            <select id="promo-active" class="bg-surface-high border border-outline/20 text-white text-sm rounded px-3 py-1 outline-none">
+              <option value="true">Nyala (Aktif)</option>
+              <option value="false">Mati (Hidden)</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs font-bold text-outline block mb-1">Judul Pop-up</label>
+            <input type="text" id="promo-title" class="w-full bg-surface-high border border-outline/20 rounded px-3 py-2 text-sm text-white focus:border-primary outline-none">
+          </div>
+          <div>
+            <label class="text-xs font-bold text-outline block mb-1">Deskripsi Promo</label>
+            <textarea id="promo-desc" rows="2" class="w-full bg-surface-high border border-outline/20 rounded px-3 py-2 text-sm text-white focus:border-primary outline-none"></textarea>
+          </div>
+          <div>
+            <label class="text-xs font-bold text-green-400 block mb-1">Kode Voucher</label>
+            <input type="text" id="promo-voucher" class="w-full bg-surface-high border border-outline/20 rounded px-3 py-2 text-sm text-green-400 font-bold tracking-widest focus:border-primary outline-none">
+          </div>
+          <button onclick="saveTempData()" class="mt-2 bg-surface-high border border-primary text-primary px-4 py-2 rounded-lg font-bold text-sm self-start">Simpan Draft</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ================= MODAL: ADD/EDIT PRODUCT ================= -->
+  <div id="product-modal" class="fixed inset-0 bg-black/80 z-[60] flex items-center justify-center p-4 hidden-view">
+    <div class="bg-surface-low w-full max-w-2xl max-h-[95vh] overflow-y-auto rounded-2xl border border-primary/30 shadow-2xl p-6 flex flex-col gap-4">
+      <div class="flex justify-between items-center border-b border-outline/10 pb-3">
+        <h2 id="modal-title" class="text-xl font-bold text-primary">Tambah/Edit Produk</h2>
+        <button onclick="closeProductModal()" class="text-outline hover:text-white"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Kiri -->
+        <div class="flex flex-col gap-3">
+          <input type="hidden" id="prod-id">
+          <div>
+            <label class="text-[10px] font-bold text-outline uppercase">Status Produk</label>
+            <select id="prod-active" class="w-full bg-surface-high border border-outline/20 rounded px-3 py-2 text-sm text-white mt-1">
+              <option value="true">Aktif (Tampil di Web)</option>
+              <option value="false">Draft (Sembunyikan)</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-[10px] font-bold text-outline uppercase">Nama Parfum</label>
+            <input type="text" id="prod-name" class="w-full bg-surface-high border border-outline/20 rounded px-3 py-2 text-sm text-white mt-1" placeholder="Contoh: Wonderose">
+          </div>
+          <div>
+            <label class="text-[10px] font-bold text-outline uppercase">Kategori</label>
+            <select id="prod-category" class="w-full bg-surface-high border border-outline/20 rounded px-3 py-2 text-sm text-white mt-1">
+              <option value="women">Women Series</option>
+              <option value="men">Men Series</option>
+              <option value="unisex">Unisex Series</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-[10px] font-bold text-outline uppercase">Deskripsi Singkat</label>
+            <textarea id="prod-desc" rows="2" class="w-full bg-surface-high border border-outline/20 rounded px-3 py-2 text-sm text-white mt-1"></textarea>
+          </div>
+          <div>
+            <label class="text-[10px] font-bold text-outline uppercase">Fragrance Notes (Top • Heart • Base)</label>
+            <textarea id="prod-notes" rows="2" class="w-full bg-surface-high border border-outline/20 rounded px-3 py-2 text-sm text-white mt-1" placeholder="Top: Apple • Base: Musk"></textarea>
+          </div>
+        </div>
+
+        <!-- Kanan -->
+        <div class="flex flex-col gap-3">
+          <!-- Image Upload System -->
+          <div class="p-3 bg-surface-high border border-dashed border-outline/30 rounded-lg">
+            <label class="text-[10px] font-bold text-outline uppercase">Foto Produk (Maks 500KB, Rasio 1:1)</label>
+            <div class="mt-2 flex flex-col gap-2">
+              <input type="file" id="prod-file" accept=".jpg,.jpeg,.png,.webp" class="text-xs text-outline file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:font-bold file:bg-primary file:text-black hover:file:bg-yellow-400">
+              <span class="text-[9px] text-primary italic" id="upload-status">*Pilih file untuk auto-upload ke GitHub</span>
+              <input type="text" id="prod-img" readonly class="w-full bg-surface border border-outline/20 rounded px-2 py-1 text-[10px] text-outline mt-1" placeholder="URL Gambar akan muncul di sini">
+              <img id="prod-preview" src="" class="w-20 h-20 object-cover rounded border border-outline/20 hidden">
+            </div>
+          </div>
+
+          <!-- Variants System -->
+          <div class="p-3 bg-surface-high border border-outline/10 rounded-lg">
+            <div class="flex justify-between items-center mb-2">
+              <label class="text-[10px] font-bold text-outline uppercase">Varian Ukuran & Harga</label>
+              <button type="button" onclick="addVariantRow()" class="text-[10px] bg-primary/20 text-primary px-2 py-1 rounded font-bold hover:bg-primary hover:text-black">+ Tambah</button>
+            </div>
+            <div id="variants-container" class="flex flex-col gap-2 max-h-32 overflow-y-auto">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="flex justify-end gap-2 mt-4 pt-4 border-t border-outline/10">
+        <button type="button" onclick="closeProductModal()" class="px-4 py-2 rounded font-bold text-sm text-outline hover:text-white">Batal</button>
+        <button type="button" onclick="saveProduct()" class="px-4 py-2 rounded bg-primary text-black font-bold text-sm shadow-lg active:scale-95">Simpan Produk</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= JAVASCRIPT ================= -->
+  <script>
+    // --- State Management ---
+    let GITHUB_PAT = localStorage.getItem('elpar_pat') || '';
+    let GITHUB_USER = localStorage.getItem('elpar_user') || '';
+    let GITHUB_REPO = localStorage.getItem('elpar_repo') || '';
+    const FILE_PATH = 'data/database.json';
+    
+    let dbData = null; // Menampung seluruh isi database.json
+    let dbSha = ''; // SHA file di GitHub untuk keperluan update/commit
+    let isUploading = false;
+
+    // Default Template Struktur JSON jika file belum ada
+    const defaultDB = {
+      settings: {
+        runningText: "DIRECT WA ORDERING • NO REGISTRATION REQUIRED",
+        waOrder: "6281222112100", waReseller: "6281222112100",
+        waGreeting: "Halo Admin ELPAR, pesanan saya:%0A",
+        waFooter: "%0AMohon info ongkir ya. Terima kasih!",
+        address: "Perum Griya Utami 2 B18", mapsUrl: "",
+        instagram: "", shopee: "", tokopedia: "", tiktok: ""
+      },
+      promo: { active: true, title: "GRAND OPENING!", desc: "Dapatkan penawaran spesial.", voucher: "ELPARHYPE" },
+      products: []
+    };
+
+    // --- Helpers ---
+    function showToast(msg, isError = false) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-msg').innerText = msg;
+      toast.classList.remove('opacity-0', 'pointer-events-none', 'bg-green-500', 'bg-red-500');
+      toast.classList.add(isError ? 'bg-red-500' : 'bg-green-500');
+      toast.classList.remove('opacity-0', 'pointer-events-none');
+      setTimeout(() => toast.classList.add('opacity-0', 'pointer-events-none'), 3000);
+    }
+    
+    function showLoader(show) {
+      const loader = document.getElementById('main-loader');
+      if(show) loader.classList.remove('hidden-view'); else loader.classList.add('hidden-view');
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden-view'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-surface-high', 'text-white', 'border-primary/30');
+        btn.classList.add('text-outline', 'border-transparent');
+      });
+      document.getElementById('tab-' + tabId).classList.remove('hidden-view');
+      const activeBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+      activeBtn.classList.remove('text-outline', 'border-transparent');
+      activeBtn.classList.add('bg-surface-high', 'text-white', 'border-primary/30');
+    }
+
+    // --- Authentication & GitHub Init ---
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      GITHUB_USER = document.getElementById('gh-user').value.trim();
+      GITHUB_REPO = document.getElementById('gh-repo').value.trim();
+      GITHUB_PAT = document.getElementById('gh-pat').value.trim();
+      
+      // Simpan di localStorage
+      localStorage.setItem('elpar_user', GITHUB_USER);
+      localStorage.setItem('elpar_repo', GITHUB_REPO);
+      localStorage.setItem('elpar_pat', GITHUB_PAT);
+      
+      initCMS();
+    });
+
+    function logout() {
+      localStorage.clear();
+      location.reload();
+    }
+
+    // Cek status saat load
+    window.onload = () => {
+      if(GITHUB_PAT && GITHUB_USER && GITHUB_REPO) {
+        document.getElementById('gh-user').value = GITHUB_USER;
+        document.getElementById('gh-repo').value = GITHUB_REPO;
+        document.getElementById('gh-pat').value = GITHUB_PAT;
+        initCMS();
+      }
+    };
+
+    // --- Fetch Data from GitHub ---
+    async function initCMS() {
+      document.getElementById('btn-login').innerText = "Connecting...";
+      try {
+        const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${FILE_PATH}`, {
+          headers: { 'Authorization': `Bearer ${GITHUB_PAT}`, 'Accept': 'application/vnd.github.v3+json' }
+        });
+        
+        if (response.status === 401) throw new Error("Akses Ditolak: PAT Invalid.");
+        if (response.status === 404) {
+          // File belum ada, kita pakai default
+          dbData = JSON.parse(JSON.stringify(defaultDB));
+          showToast("Database baru disiapkan.");
+        } else if (response.ok) {
+          const resJson = await response.json();
+          dbSha = resJson.sha; // Simpan SHA untuk update
+          // Decode content base64
+          const decoded = decodeURIComponent(escape(atob(resJson.content)));
+          dbData = JSON.parse(decoded);
+          showToast("Berhasil terhubung ke GitHub!");
+        } else {
+          throw new Error("Gagal membaca repositori. Cek Username/Repo.");
+        }
+
+        // Pindah layar
+        document.getElementById('login-screen').classList.add('hidden-view');
+        document.getElementById('dashboard-screen').classList.remove('hidden-view');
+        
+        // Render semua form
+        populateForms();
+        renderProductGrid();
+
+      } catch (err) {
+        showToast(err.message, true);
+        document.getElementById('btn-login').innerText = "Connect to GitHub";
+      }
+    }
+
+    // --- Populate Settings Forms ---
+    function populateForms() {
+      if(!dbData) return;
+      const s = dbData.settings;
+      const p = dbData.promo;
+      
+      // Settings
+      document.getElementById('set-running').value = s.runningText || "";
+      document.getElementById('set-wa-order').value = s.waOrder || "";
+      document.getElementById('set-wa-reseller').value = s.waReseller || "";
+      document.getElementById('set-address').value = s.address || "";
+      document.getElementById('set-maps').value = s.mapsUrl || "";
+      document.getElementById('set-ig').value = s.instagram || "";
+      document.getElementById('set-shopee').value = s.shopee || "";
+      
+      // WA
+      document.getElementById('wa-greeting').value = s.waGreeting || "";
+      document.getElementById('wa-footer').value = s.waFooter || "";
+      
+      // Promo
+      document.getElementById('promo-active').value = p.active ? "true" : "false";
+      document.getElementById('promo-title').value = p.title || "";
+      document.getElementById('promo-desc').value = p.desc || "";
+      document.getElementById('promo-voucher').value = p.voucher || "";
+    }
+
+    // --- Save Forms to Temporary memory ---
+    function saveTempData() {
+      dbData.settings.runningText = document.getElementById('set-running').value;
+      dbData.settings.waOrder = document.getElementById('set-wa-order').value;
+      dbData.settings.waReseller = document.getElementById('set-wa-reseller').value;
+      dbData.settings.address = document.getElementById('set-address').value;
+      dbData.settings.mapsUrl = document.getElementById('set-maps').value;
+      dbData.settings.instagram = document.getElementById('set-ig').value;
+      dbData.settings.shopee = document.getElementById('set-shopee').value;
+      
+      dbData.settings.waGreeting = document.getElementById('wa-greeting').value;
+      dbData.settings.waFooter = document.getElementById('wa-footer').value;
+      
+      dbData.promo.active = document.getElementById('promo-active').value === "true";
+      dbData.promo.title = document.getElementById('promo-title').value;
+      dbData.promo.desc = document.getElementById('promo-desc').value;
+      dbData.promo.voucher = document.getElementById('promo-voucher').value;
+      
+      showToast("Draft disimpan di memory lokal. Jangan lupa Commit!");
+    }
+
+    // --- PRODUCT CRUD ---
+    function renderProductGrid() {
+      const grid = document.getElementById('product-grid');
+      grid.innerHTML = '';
+      if(!dbData.products) dbData.products = [];
+
+      dbData.products.forEach((prod, index) => {
+        const isActive = prod.active !== false; // default true
+        const statusBadge = isActive 
+          ? `<span class="bg-green-500/20 text-green-400 px-2 py-0.5 rounded text-[10px] font-bold">Aktif</span>` 
+          : `<span class="bg-red-500/20 text-red-400 px-2 py-0.5 rounded text-[10px] font-bold">Draft</span>`;
+        
+        grid.innerHTML += `
+          <div class="bg-surface-low border border-outline/10 p-3 rounded-xl flex flex-col gap-2 relative group">
+            <div class="absolute top-2 left-2 z-10">${statusBadge}</div>
+            <div class="w-full h-32 bg-surface-high rounded-lg overflow-hidden">
+              <img src="${prod.img || ''}" class="w-full h-full object-cover opacity-${isActive ? '100' : '40'}">
+            </div>
+            <div>
+              <h3 class="font-bold text-sm text-white truncate">${prod.name}</h3>
+              <p class="text-[10px] text-primary uppercase">${prod.category}</p>
+              <p class="text-[10px] text-outline mt-1">${prod.variants ? prod.variants.length : 0} Varian Ukuran</p>
+            </div>
+            <div class="flex gap-2 mt-2">
+              <button onclick="editProduct(${index})" class="flex-1 bg-surface-high border border-primary/50 text-primary py-1.5 rounded text-xs font-bold hover:bg-primary hover:text-black transition-colors">Edit</button>
+              <button onclick="deleteProduct(${index})" class="bg-red-500/10 text-red-400 px-3 py-1.5 rounded text-xs hover:bg-red-500 hover:text-white transition-colors"><span class="material-symbols-outlined text-[16px]">delete</span></button>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    let editingIndex = -1;
+    function openProductModal() {
+      editingIndex = -1;
+      document.getElementById('modal-title').innerText = "Tambah Parfum Baru";
+      document.getElementById('prod-id').value = "P" + Date.now();
+      document.getElementById('prod-active').value = "true";
+      document.getElementById('prod-name').value = "";
+      document.getElementById('prod-category').value = "women";
+      document.getElementById('prod-desc').value = "";
+      document.getElementById('prod-notes').value = "";
+      document.getElementById('prod-img').value = "";
+      document.getElementById('prod-preview').classList.add('hidden');
+      document.getElementById('prod-file').value = "";
+      document.getElementById('upload-status').innerText = "*Pilih file untuk auto-upload ke GitHub";
+      
+      document.getElementById('variants-container').innerHTML = '';
+      addVariantRow('30ml', 0); // Default 1 row
+
+      document.getElementById('product-modal').classList.remove('hidden-view');
+    }
+
+    function editProduct(index) {
+      editingIndex = index;
+      const p = dbData.products[index];
+      document.getElementById('modal-title').innerText = "Edit: " + p.name;
+      document.getElementById('prod-id').value = p.id;
+      document.getElementById('prod-active').value = p.active !== false ? "true" : "false";
+      document.getElementById('prod-name').value = p.name;
+      document.getElementById('prod-category').value = p.category;
+      document.getElementById('prod-desc').value = p.desc;
+      document.getElementById('prod-notes').value = p.notes;
+      document.getElementById('prod-img').value = p.img;
+      
+      if(p.img) {
+        document.getElementById('prod-preview').src = p.img;
+        document.getElementById('prod-preview').classList.remove('hidden');
+      }
+
+      const vContainer = document.getElementById('variants-container');
+      vContainer.innerHTML = '';
+      if(p.variants && p.variants.length > 0) {
+        p.variants.forEach(v => addVariantRow(v.size, v.price));
+      } else {
+        addVariantRow('', 0);
+      }
+
+      document.getElementById('product-modal').classList.remove('hidden-view');
+    }
+
+    function closeProductModal() { document.getElementById('product-modal').classList.add('hidden-view'); }
+
+    function deleteProduct(index) {
+      if(confirm("Yakin ingin menghapus produk ini permanen?")) {
+        dbData.products.splice(index, 1);
+        renderProductGrid();
+        showToast("Produk dihapus dari draft.");
+      }
+    }
+
+    function addVariantRow(size = '', price = '') {
+      const id = Date.now() + Math.random();
+      const row = document.createElement('div');
+      row.className = 'flex gap-2 items-center variant-row';
+      row.innerHTML = `
+        <input type="text" placeholder="Size (ex: 50ml)" value="${size}" class="v-size w-1/3 bg-surface border border-outline/20 rounded px-2 py-1 text-xs text-white outline-none">
+        <input type="number" placeholder="Harga (Rp)" value="${price}" class="v-price w-1/2 bg-surface border border-outline/20 rounded px-2 py-1 text-xs text-white outline-none">
+        <button type="button" onclick="this.parentElement.remove()" class="text-red-400 hover:text-red-500"><span class="material-symbols-outlined text-[18px]">close</span></button>
+      `;
+      document.getElementById('variants-container').appendChild(row);
+    }
+
+    function saveProduct() {
+      if(isUploading) return alert("Tunggu, sedang upload gambar!");
+      
+      const name = document.getElementById('prod-name').value.trim();
+      if(!name) return alert("Nama produk wajib diisi!");
+
+      // Ambil variants
+      const vRows = document.querySelectorAll('.variant-row');
+      const variants = [];
+      vRows.forEach(row => {
+        const s = row.querySelector('.v-size').value.trim();
+        const p = parseInt(row.querySelector('.v-price').value) || 0;
+        if(s) variants.push({ size: s, price: p });
+      });
+      if(variants.length === 0) return alert("Minimal 1 varian ukuran harus diisi!");
+
+      const productObj = {
+        id: document.getElementById('prod-id').value,
+        active: document.getElementById('prod-active').value === "true",
+        name: name,
+        category: document.getElementById('prod-category').value,
+        desc: document.getElementById('prod-desc').value,
+        notes: document.getElementById('prod-notes').value,
+        img: document.getElementById('prod-img').value,
+        variants: variants
+      };
+
+      if(editingIndex > -1) {
+        dbData.products[editingIndex] = productObj;
+      } else {
+        dbData.products.push(productObj);
+      }
+
+      closeProductModal();
+      renderProductGrid();
+      showToast("Produk disimpan ke draft.");
+    }
+
+    // --- UPLOAD IMAGE TO GITHUB ---
+    document.getElementById('prod-file').addEventListener('change', async function(e) {
+      const file = e.target.files[0];
+      if(!file) return;
+
+      // Validasi Ketat (Sesuai Permintaan)
+      if (file.size > 500 * 1024) { alert("Ukuran file kebesaran! Maksimal 500KB."); this.value = ''; return; }
+      const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
+      if (!validTypes.includes(file.type)) { alert("Format foto wajib JPG, PNG, atau WEBP."); this.value = ''; return; }
+
+      const statusTxt = document.getElementById('upload-status');
+      statusTxt.innerText = "Mengunggah ke GitHub...";
+      statusTxt.className = "text-[9px] text-yellow-400 font-bold";
+      isUploading = true;
+
+      const reader = new FileReader();
+      reader.onload = async function(event) {
+        const base64Content = event.target.result.split(',')[1];
+        const safeName = Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9.]/g, '');
+        const imagePath = `data/images/${safeName}`; // Simpan di subfolder repo
+
+        try {
+          const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${imagePath}`, {
+            method: 'PUT',
+            headers: { 'Authorization': `Bearer ${GITHUB_PAT}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              message: `CMS: Upload image ${safeName}`,
+              content: base64Content,
+              branch: 'main'
+            })
+          });
+
+          if(response.ok) {
+            const resJson = await response.json();
+            // Gunakan JSDelivr CDN atau raw.githubusercontent untuk URL gambar
+            const imgUrl = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${imagePath}`;
+            
+            document.getElementById('prod-img').value = imgUrl;
+            document.getElementById('prod-preview').src = imgUrl;
+            document.getElementById('prod-preview').classList.remove('hidden');
+            
+            statusTxt.innerText = "Upload Berhasil!";
+            statusTxt.className = "text-[9px] text-green-400 font-bold";
+          } else {
+            throw new Error("Gagal push ke GitHub API.");
+          }
+        } catch(err) {
+          alert("Error Upload: " + err.message);
+          statusTxt.innerText = "Upload gagal.";
+          statusTxt.className = "text-[9px] text-red-400";
+        } finally {
+          isUploading = false;
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // --- PUSH ALL DATA (COMMIT TO GITHUB) ---
+    async function commitToGitHub() {
+      if(!dbData) return alert("Data kosong!");
+      if(!confirm("Anda akan mem-publish perubahan ke Live Website. Lanjutkan?")) return;
+      
+      showLoader(true);
+      try {
+        // Encoding string to Base64 (mendukung karakter UTF-8 seperti emoji)
+        const jsonString = JSON.stringify(dbData, null, 2);
+        const encodedContent = btoa(unescape(encodeURIComponent(jsonString)));
+
+        const bodyData = {
+          message: "CMS Update: Changes via Admin Dashboard",
+          content: encodedContent,
+          branch: "main"
+        };
+        // Jika file sudah ada, sertakan SHA untuk menimpa
+        if(dbSha) bodyData.sha = dbSha;
+
+        const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${FILE_PATH}`, {
+          method: 'PUT',
+          headers: { 'Authorization': `Bearer ${GITHUB_PAT}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify(bodyData)
+        });
+
+        if(response.ok) {
+          const res = await response.json();
+          dbSha = res.content.sha; // Update sha baru
+          showToast("DEPLOY SUKSES! Vercel akan otomatis update dalam beberapa detik.");
+        } else {
+          const errData = await response.json();
+          throw new Error(errData.message || "Gagal menyimpan ke GitHub");
+        }
+      } catch(error) {
+        showToast(error.message, true);
+      } finally {
+        showLoader(false);
+      }
+    }
+  </script>
+</body>
+</html>
