@@ -1,1 +1,22 @@
-
+{
+  "settings": {
+    "runningText": "DIRECT WA ORDERING • NO REGISTRATION REQUIRED",
+    "waOrder": "6281222112100",
+    "waReseller": "6281222112100",
+    "waGreeting": "Halo Admin ELPAR, pesanan saya:%0A",
+    "waFooter": "%0AMohon info ongkir ya. Terima kasih!",
+    "address": "Perum Griya Utami 2 B18",
+    "mapsUrl": "https://maps.google.com/?q=Perum+Griya+Utami+2+B18",
+    "instagram": "https://www.instagram.com/elparofficial/",
+    "shopee": "https://shopee.co.id/elpar",
+    "tokopedia": "",
+    "tiktok": ""
+  },
+  "promo": {
+    "active": true,
+    "title": "GRAND OPENING!",
+    "desc": "Dapatkan penawaran spesial untuk pembelian perdana Anda.",
+    "voucher": "ELPARHYPE"
+  },
+  "products": []
+}
