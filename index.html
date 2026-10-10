@@ -4,9 +4,12 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
   <title>ELPAR Official - Haute Parfumerie</title>
+  
+  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
   <script src="https://cdn.tailwindcss.com"></script>
+  
   <script>
     tailwind.config = {
       darkMode: "class",
@@ -41,48 +44,39 @@
     .snap-start { scroll-snap-align: start; }
     
     /* Light Mode Overrides */
-    html:not(.dark) {
-      --tw-bg-opacity: 1;
-      background-color: #f8f9fa;
-      color: #1a1a1a;
-    }
+    html:not(.dark) { background-color: #f8f9fa; color: #1a1a1a; }
     html:not(.dark) .bg-surface { background-color: #f8f9fa; }
     html:not(.dark) .bg-surface-container { background-color: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
     html:not(.dark) .bg-surface-container-low { background-color: #f0f2f5; }
     html:not(.dark) .bg-surface-container-high { background-color: #e9ecef; }
-    html:not(.dark) .bg-surface-container-lowest { background-color: #ffffff; }
     html:not(.dark) .text-on-surface { color: #1a1a1a; }
     html:not(.dark) .text-on-surface-variant { color: #495057; }
     html:not(.dark) .border-outline\/10 { border-color: rgba(0,0,0,0.1); }
   </style>
 </head>
-<body class="bg-surface font-sans text-on-surface antialiased flex flex-col min-h-screen selection:bg-primary selection:text-on-primary">
+<body class="bg-surface font-sans text-on-surface antialiased flex flex-col min-h-screen">
 
   <!-- ================= HEADER ================= -->
   <header class="fixed top-0 w-full z-40 bg-surface/90 backdrop-blur-xl border-b border-primary/20 transition-colors duration-300">
-    <div class="bg-surface-container-lowest py-1 px-4 text-center overflow-hidden flex items-center justify-between text-[10px] tracking-widest uppercase text-primary">
+    <div class="bg-surface-container py-1 px-4 text-center flex items-center justify-between text-[10px] tracking-widest uppercase text-primary">
       <span id="top-announcement">DIRECT WA ORDERING • NO REGISTRATION REQUIRED</span>
-      <div class="flex items-center gap-2">
-        <!-- Language Toggle -->
-        <div class="flex items-center gap-1 bg-surface-container px-2 py-0.5 rounded-full text-on-surface cursor-pointer font-bold border border-outline/20" onclick="toggleLanguage()">
-          <span id="lang-indicator">ID 🇮🇩</span>
-        </div>
+      <div class="flex items-center gap-1 bg-surface-container-high px-2 py-0.5 rounded-full text-on-surface cursor-pointer font-bold border border-outline/20" onclick="toggleLanguage()">
+        <span id="lang-indicator">ID 🇮🇩</span>
       </div>
     </div>
     
     <div class="h-16 px-4 flex items-center justify-between gap-2">
       <div class="flex items-center gap-2">
-        <button aria-label="Open Menu" class="w-10 h-10 flex items-center justify-center text-primary active:scale-95 transition-transform" id="drawer-toggle">
+        <button class="w-10 h-10 flex items-center justify-center text-primary active:scale-95 transition-transform" id="drawer-toggle">
           <span class="material-symbols-outlined text-[24px]">menu</span>
         </button>
-        <a class="flex flex-col" href="#">
+        <a class="flex flex-col" href="#hero">
           <span class="font-serif text-xl tracking-wide text-primary uppercase font-bold leading-none">ELPAR</span>
           <span class="text-[8px] tracking-[0.25em] text-on-surface-variant uppercase mt-0.5">Perfume It's Your Identity</span>
         </a>
       </div>
       
       <div class="flex items-center gap-2">
-        <!-- Theme Toggle -->
         <button id="theme-toggle" class="w-8 h-8 flex items-center justify-center text-on-surface hover:text-primary transition-colors">
           <span class="material-symbols-outlined text-[20px]" id="theme-icon">light_mode</span>
         </button>
@@ -91,7 +85,7 @@
           <span class="material-symbols-outlined text-[14px]">shopping_bag</span> Shopee
         </a>
 
-        <!-- Cart Button -->
+        <!-- Ikon Keranjang -->
         <button aria-label="Shopping Bag" class="w-10 h-10 relative flex items-center justify-center text-wa-green hover:text-[#1ebd5a] transition-colors" id="open-cart-header">
           <span class="material-symbols-outlined text-[24px]">shopping_cart</span>
           <span class="absolute top-0 right-0 min-w-[16px] h-4 px-1 rounded-full bg-wa-green text-black text-[10px] font-bold flex items-center justify-center leading-none" id="cart-badge-count">0</span>
@@ -129,17 +123,17 @@
         <div class="grid grid-cols-2 gap-2 mt-2">
           <a href="https://www.instagram.com/elparofficial/" target="_blank" class="text-primary font-bold flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">photo_camera</span> Instagram</a>
           <a href="https://shopee.co.id/elpar" target="_blank" class="text-[#EE4D2D] font-bold flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">shopping_bag</span> Shopee</a>
-          <a href="#" target="_blank" class="text-[#42b549] font-bold flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">storefront</span> Tokopedia</a>
-          <a href="#" target="_blank" class="text-on-surface font-bold flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">music_note</span> TikTok Shop</a>
         </div>
       </div>
     </nav>
   </div>
 
-  <!-- ================= WELCOME POP-UP CAMPAIGN ================= -->
+  <!-- ================= STANDARDIZED POP-UPS (ONE TEMPLATE) ================= -->
+  
+  <!-- 1. WELCOME PROMO POP-UP -->
   <div class="fixed inset-0 z-[60] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center justify-center px-4" id="welcome-modal">
     <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" id="welcome-backdrop"></div>
-    <div class="relative w-full max-w-sm bg-surface-container rounded-2xl p-6 flex flex-col items-center text-center gap-3 z-10 shadow-2xl border-2 border-primary transform scale-95 transition-transform duration-500" id="welcome-content">
+    <div class="relative w-full max-w-sm max-h-[85vh] overflow-y-auto bg-surface-container rounded-2xl p-6 flex flex-col items-center text-center gap-3 z-10 shadow-2xl border-2 border-primary transform scale-95 transition-transform duration-500" id="welcome-content">
       <button id="close-welcome-btn" class="absolute top-3 right-3 text-on-surface-variant hover:text-white"><span class="material-symbols-outlined">close</span></button>
       <div class="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center text-primary mb-2">
         <span class="material-symbols-outlined text-[32px]">redeem</span>
@@ -150,29 +144,25 @@
         <span class="text-[10px] text-outline uppercase tracking-widest">Gunakan Kode Voucher:</span>
         <h3 class="text-xl font-bold text-wa-green tracking-widest my-1">ELPARHYPE</h3>
       </div>
-      <button onclick="copyPromo()" class="w-full h-11 mt-2 rounded-lg bg-primary text-black font-bold text-xs uppercase tracking-wider active:scale-95 transition-transform shadow-lg">
-        Salin Kode Voucher
-      </button>
+      <button onclick="copyPromo()" class="w-full h-11 mt-2 rounded-lg bg-primary text-black font-bold text-xs uppercase tracking-wider active:scale-95 transition-transform shadow-lg">Salin Kode Voucher</button>
     </div>
   </div>
 
-  <!-- ================= PRODUCT QUICK VIEW MODAL ================= -->
+  <!-- 2. PRODUCT DETAIL POP-UP (WITH MILI/ML SELECTION) -->
   <div class="fixed inset-0 z-[70] pointer-events-none opacity-0 transition-opacity duration-300 flex items-center justify-center px-4" id="product-detail-modal">
     <div class="absolute inset-0 bg-black/80 backdrop-blur-md" id="product-detail-backdrop"></div>
-    <div class="relative w-full max-w-md bg-surface-container rounded-2xl overflow-hidden flex flex-col z-10 shadow-2xl border border-primary/30 transform scale-95 transition-transform duration-300" id="product-detail-content">
-      <button id="close-detail-btn" class="absolute top-3 right-3 z-20 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 text-white hover:bg-black transition-colors"><span class="material-symbols-outlined text-[18px]">close</span></button>
+    <div class="relative w-full max-w-sm max-h-[85vh] overflow-y-auto bg-surface-container rounded-2xl flex flex-col z-10 shadow-2xl border border-primary/30 transform scale-95 transition-transform duration-300" id="product-detail-content">
+      <button id="close-detail-btn" class="absolute top-3 right-3 z-20 w-8 h-8 flex items-center justify-center rounded-full bg-black/60 text-white hover:bg-black transition-colors"><span class="material-symbols-outlined text-[18px]">close</span></button>
       
-      <div class="w-full aspect-[4/3] bg-surface-container-low relative">
-        <img id="detail-img" src="" alt="Product Image" class="w-full h-full object-cover"/>
+      <!-- Landscape image so it doesn't take up the whole screen -->
+      <div class="w-full h-48 bg-surface-container-low relative">
+        <img id="detail-img" src="" alt="Product" class="w-full h-full object-cover"/>
       </div>
       
       <div class="p-5 flex flex-col gap-3">
-        <div class="flex justify-between items-start">
-          <div>
-            <span id="detail-category" class="text-[10px] text-primary tracking-widest uppercase font-bold">Category</span>
-            <h3 id="detail-title" class="font-serif text-2xl text-on-surface font-bold mt-1">Product Name</h3>
-          </div>
-          <span id="detail-size" class="px-2 py-1 bg-surface-container-high rounded text-[10px] text-on-surface font-bold border border-outline/20">50ml</span>
+        <div>
+          <span id="detail-category" class="text-[10px] text-primary tracking-widest uppercase font-bold">Category</span>
+          <h3 id="detail-title" class="font-serif text-2xl text-on-surface font-bold mt-1">Product Name</h3>
         </div>
         
         <p id="detail-desc" class="text-sm text-on-surface-variant leading-relaxed"></p>
@@ -181,14 +171,67 @@
           <span class="text-[10px] text-primary uppercase font-bold tracking-wider flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">spa</span> Fragrance Notes:</span>
           <p id="detail-notes" class="text-xs text-on-surface mt-1.5 leading-relaxed"></p>
         </div>
+
+        <!-- Opsi Pilihan ML -->
+        <div class="mt-2">
+          <span class="text-[10px] text-outline uppercase tracking-widest font-bold mb-2 block">Pilih Ukuran (ML):</span>
+          <div class="flex flex-wrap gap-2" id="detail-variants-container">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
         
-        <div class="flex items-center justify-between mt-2 pt-4 border-t border-outline/10">
+        <div class="flex items-center justify-between mt-3 pt-4 border-t border-outline/10">
           <span id="detail-price" class="text-xl font-bold text-primary">Rp 0</span>
-          <button id="detail-add-btn" class="h-11 px-6 rounded-xl bg-wa-green text-black font-extrabold text-xs uppercase tracking-wider shadow-[0_0_15px_rgba(37,211,102,0.3)] active:scale-95 transition-transform flex items-center gap-2 hover:bg-[#1ebd5a]">
+          <button id="detail-add-btn" class="h-11 px-6 rounded-xl bg-wa-green hover:bg-[#1ebd5a] text-black font-extrabold text-xs uppercase tracking-wider shadow-[0_0_15px_rgba(37,211,102,0.3)] active:scale-95 transition-transform flex items-center gap-2">
             <span class="material-symbols-outlined text-[18px]">add_shopping_cart</span> Beli
           </button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- 3. SCENT QUIZ POP-UP -->
+  <div class="fixed inset-0 z-[60] pointer-events-none opacity-0 transition-opacity duration-300 flex items-center justify-center px-4" id="quiz-modal">
+    <div class="absolute inset-0 bg-black/80 backdrop-blur-md" id="quiz-backdrop"></div>
+    <div class="relative w-full max-w-sm max-h-[85vh] overflow-y-auto bg-surface-container rounded-2xl p-6 flex flex-col gap-4 z-10 shadow-2xl border border-primary/30 transform scale-95 transition-transform duration-300" id="quiz-content">
+      <div class="flex items-center justify-between">
+        <span class="text-[10px] text-primary tracking-widest uppercase font-bold">Olfactory Consultation</span>
+        <button id="close-quiz-btn" class="text-on-surface-variant hover:text-white"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <h3 class="font-serif text-xl text-on-surface font-bold">Pilih Sensasi Aroma Impian</h3>
+      <p class="text-xs text-on-surface-variant">Temukan parfum ELPAR yang cocok dengan karakter Anda.</p>
+      <div class="flex flex-col gap-2 pt-2">
+        <button class="p-3 rounded-lg bg-surface-container-low hover:bg-primary/20 text-left transition-colors flex items-center justify-between border border-transparent hover:border-primary/50" onclick="selectQuizAnswer('Wonderose')">
+          <span class="text-sm text-on-surface">🌸 Romantis, Floral & Manis</span>
+          <span class="material-symbols-outlined text-primary text-[18px]">chevron_right</span>
+        </button>
+        <button class="p-3 rounded-lg bg-surface-container-low hover:bg-primary/20 text-left transition-colors flex items-center justify-between border border-transparent hover:border-primary/50" onclick="selectQuizAnswer('Black Series')">
+          <span class="text-sm text-on-surface">🌙 Hangat, Smoky & Maskulin</span>
+          <span class="material-symbols-outlined text-primary text-[18px]">chevron_right</span>
+        </button>
+        <button class="p-3 rounded-lg bg-surface-container-low hover:bg-primary/20 text-left transition-colors flex items-center justify-between border border-transparent hover:border-primary/50" onclick="selectQuizAnswer('Blue Sea')">
+          <span class="text-sm text-on-surface">🌊 Segar, Aquatic & Enerjik</span>
+          <span class="material-symbols-outlined text-primary text-[18px]">chevron_right</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. RESELLER POP-UP -->
+  <div class="fixed inset-0 z-[60] pointer-events-none opacity-0 transition-opacity duration-300 flex items-center justify-center px-4" id="reseller-modal">
+    <div class="absolute inset-0 bg-black/80 backdrop-blur-md" id="reseller-modal-backdrop"></div>
+    <div class="relative w-full max-w-sm max-h-[85vh] overflow-y-auto bg-surface-container rounded-2xl p-6 flex flex-col gap-4 z-10 shadow-2xl border border-primary/30 transform scale-95 transition-transform duration-300" id="reseller-content">
+      <div class="flex justify-between items-center border-b border-outline/20 pb-3">
+        <h3 class="font-serif text-lg text-primary font-bold">Daftar Reseller</h3>
+        <button id="close-reseller-modal" class="text-on-surface-variant hover:text-white"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <form id="reseller-form" class="flex flex-col gap-3 text-xs">
+        <input type="text" placeholder="Nama Lengkap" required class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface placeholder:text-outline border border-outline/20 focus:outline-none focus:border-primary"/>
+        <input type="tel" placeholder="Nomor WhatsApp (Cth: 08123456789)" required class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface placeholder:text-outline border border-outline/20 focus:outline-none focus:border-primary"/>
+        <input type="text" placeholder="Kota / Wilayah" required class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface placeholder:text-outline border border-outline/20 focus:outline-none focus:border-primary"/>
+        <textarea placeholder="Pesan / Pengalaman Usaha..." rows="3" class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface placeholder:text-outline border border-outline/20 focus:outline-none focus:border-primary resize-none"></textarea>
+        <button type="submit" class="w-full h-12 mt-2 rounded-lg bg-primary text-black font-bold uppercase tracking-wider shadow-lg active:scale-95 transition-transform">Kirim via WA Admin</button>
+      </form>
     </div>
   </div>
 
@@ -282,13 +325,13 @@
     </section>
 
     <!-- RESELLER SECTION -->
-    <section class="px-5 py-8" id="reseller">
+    <section class="px-5 py-8" id="reseller-section">
       <div class="rounded-2xl bg-surface-container-high p-6 flex flex-col gap-4 border border-primary/20 shadow-2xl">
         <span class="text-xs text-primary uppercase font-bold tracking-widest">Kemitraan & Wholesale</span>
-        <h2 class="font-serif text-2xl text-on-surface font-bold">BERGABUNG JADI RESELLER ELPAR</h2>
-        <p class="text-xs text-on-surface-variant">Dapatkan penawaran margin keuntungan menarik, dukungan sampel produk, dan materi promosi resmi.</p>
+        <h2 class="font-serif text-2xl text-on-surface font-bold">BERGABUNG JADI RESELLER</h2>
+        <p class="text-xs text-on-surface-variant">Dapatkan margin menarik, dukungan sampel produk, dan materi promosi resmi.</p>
         <button id="open-reseller-modal" class="w-full h-12 rounded-lg bg-primary text-on-primary font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-transform">
-          <span>Daftar Kemitraan Reseller</span>
+          <span>Daftar Sekarang</span>
           <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
         </button>
       </div>
@@ -307,7 +350,7 @@
         <div class="p-4 rounded-xl bg-surface-container-low flex items-center gap-4">
           <span class="material-symbols-outlined text-primary text-[28px]">package_2</span>
           <div>
-            <h5 class="text-sm text-on-surface font-bold">Safe & Premium Packaging</h5>
+            <h5 class="text-sm text-on-surface font-bold">Safe Packaging</h5>
             <p class="text-xs text-on-surface-variant">Pengemasan aman untuk pengiriman seluruh Indonesia.</p>
           </div>
         </div>
@@ -320,7 +363,7 @@
         </a>
       </div>
       
-      <div class="flex flex-col items-center gap-4 border-t border-outline/10 pt-6">
+      <div class="flex flex-col items-center gap-4 border-t border-outline/10 pt-6 text-center">
         <h2 class="font-serif text-2xl text-primary font-bold tracking-widest">ELPAR</h2>
         
         <div class="flex gap-4">
@@ -329,10 +372,10 @@
           <a href="#" target="_blank" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-[#42b549] hover:bg-[#42b549] hover:text-white transition-colors"><span class="material-symbols-outlined text-[20px]">storefront</span></a>
           <a href="#" target="_blank" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-white hover:text-black transition-colors"><span class="material-symbols-outlined text-[20px]">music_note</span></a>
         </div>
-        <a href="https://maps.google.com/?q=Perum+Griya+Utami+2+B18" target="_blank" class="text-xs text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1">
+        <a href="https://maps.google.com/?q=Perum+Griya+Utami+2+B18" target="_blank" class="text-xs text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 mt-2">
           <span class="material-symbols-outlined text-[14px]">location_on</span> Perum Griya Utami 2 B18
         </a>
-        <p class="text-[10px] text-outline tracking-widest uppercase">© 2026 ELPAR OFFICIAL. ALL RIGHTS RESERVED.</p>
+        <p class="text-[10px] text-outline tracking-widest uppercase mt-2">© 2026 ELPAR OFFICIAL. ALL RIGHTS RESERVED.</p>
       </div>
     </footer>
   </main>
@@ -363,211 +406,203 @@
 
       <div class="p-5 bg-surface-container-low border-t border-wa-green/20 flex flex-col gap-4 shadow-[0_-10px_20px_rgba(0,0,0,0.1)]">
         <div class="flex justify-between items-center text-sm">
-          <span class="text-on-surface-variant">Subtotal Pembelian</span>
+          <span class="text-on-surface-variant">Subtotal</span>
           <span class="font-bold text-on-surface text-lg" id="cart-subtotal">Rp 0</span>
         </div>
         <button id="send-whatsapp-order-btn" class="w-full h-14 rounded-xl bg-wa-green hover:bg-[#1ebd5a] text-black font-extrabold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(37,211,102,0.3)] active:scale-95 transition-all">
-          <span class="material-symbols-outlined text-[22px]">send</span>
-          <span>Checkout via WhatsApp</span>
+          <span class="material-symbols-outlined text-[22px]">send</span> Checkout via WhatsApp
         </button>
       </div>
     </div>
   </div>
 
-  <!-- ================= MODAL RESELLER ================= -->
-  <div class="fixed inset-0 z-50 pointer-events-none opacity-0 transition-opacity duration-300 flex items-center justify-center px-4" id="reseller-modal">
-    <div class="absolute inset-0 bg-black/80 backdrop-blur-md" id="reseller-modal-backdrop"></div>
-    <div class="relative w-full max-w-md bg-surface-container rounded-2xl p-6 flex flex-col gap-4 z-10 shadow-2xl border border-primary/30">
-      <div class="flex justify-between items-center border-b border-outline/20 pb-3">
-        <h3 class="font-serif text-lg text-primary font-bold">Daftar Reseller ELPAR</h3>
-        <button id="close-reseller-modal" class="text-on-surface-variant hover:text-white"><span class="material-symbols-outlined">close</span></button>
-      </div>
-      <form id="reseller-form" class="flex flex-col gap-3 text-xs">
-        <input type="text" placeholder="Nama Lengkap" required class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface placeholder:text-outline border border-outline/20 focus:outline-none focus:border-primary"/>
-        <input type="tel" placeholder="Nomor WhatsApp (Cth: 08123456789)" required class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface placeholder:text-outline border border-outline/20 focus:outline-none focus:border-primary"/>
-        <input type="text" placeholder="Kota / Wilayah" required class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface placeholder:text-outline border border-outline/20 focus:outline-none focus:border-primary"/>
-        <textarea placeholder="Pesan / Pengalaman Usaha..." rows="3" class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface placeholder:text-outline border border-outline/20 focus:outline-none focus:border-primary resize-none"></textarea>
-        <button type="submit" class="w-full h-12 mt-2 rounded-lg bg-primary text-black font-bold uppercase tracking-wider shadow-lg active:scale-95 transition-transform">Kirim via WA Admin</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- ================= SCENT QUIZ MODAL ================= -->
-  <div class="fixed inset-0 z-50 pointer-events-none opacity-0 transition-opacity duration-300 flex items-center justify-center px-4" id="quiz-modal">
-    <div class="absolute inset-0 bg-black/80 backdrop-blur-md" id="quiz-backdrop"></div>
-    <div class="relative w-full max-w-sm bg-surface-container rounded-2xl p-6 flex flex-col gap-4 z-10 shadow-2xl border border-primary/30">
-      <div class="flex items-center justify-between">
-        <span class="text-[10px] text-primary tracking-widest uppercase font-bold">Olfactory Consultation</span>
-        <button id="close-quiz-btn" class="text-on-surface-variant hover:text-white"><span class="material-symbols-outlined">close</span></button>
-      </div>
-      <h3 class="font-serif text-xl text-on-surface font-bold">Pilih Sensasi Aroma Impian</h3>
-      <div class="flex flex-col gap-2 pt-2">
-        <button class="p-3 rounded-lg bg-surface-container-low hover:bg-primary/20 text-left transition-colors flex items-center justify-between border border-transparent hover:border-primary/50" onclick="selectQuizAnswer('Wonderose')">
-          <span class="text-sm text-on-surface">🌸 Romantis, Floral & Manis</span>
-          <span class="material-symbols-outlined text-primary text-[18px]">chevron_right</span>
-        </button>
-        <button class="p-3 rounded-lg bg-surface-container-low hover:bg-primary/20 text-left transition-colors flex items-center justify-between border border-transparent hover:border-primary/50" onclick="selectQuizAnswer('Black Series')">
-          <span class="text-sm text-on-surface">🌙 Hangat, Smoky & Maskulin</span>
-          <span class="material-symbols-outlined text-primary text-[18px]">chevron_right</span>
-        </button>
-        <button class="p-3 rounded-lg bg-surface-container-low hover:bg-primary/20 text-left transition-colors flex items-center justify-between border border-transparent hover:border-primary/50" onclick="selectQuizAnswer('Blue Sea')">
-          <span class="text-sm text-on-surface">🌊 Segar, Aquatic & Enerjik</span>
-          <span class="material-symbols-outlined text-primary text-[18px]">chevron_right</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <!-- ================= JAVASCRIPT LOGIC & CMS SETTINGS ================= -->
   <script>
-    // --- Data Produk Terupdate dengan Size & Notes ---
-    const productsData = [
-      { id: 'W01', name: 'Wonderose', category: 'women', price: 185000, desc: 'Sweet Rose & Romantic Floral', size: '50ml', notes: 'Top: Pink Pepper • Heart: Damask Rose • Base: White Musk', img: 'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=500&q=80' },
-      { id: 'W02', name: 'Baby Love', category: 'women', price: 175000, desc: 'Soft Powder & Vanilla Love', size: '50ml', notes: 'Top: Bergamot • Heart: Powdery Iris • Base: Vanilla', img: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=500&q=80' },
-      { id: 'W03', name: 'Red Velvet', category: 'women', price: 195000, desc: 'Warm Gourmet & Creamy Delight', size: '50ml', notes: 'Top: Strawberry • Heart: Caramel Cacao • Base: Warm Amber', img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=500&q=80' },
-      
-      { id: 'M01', name: 'Black Series', category: 'men', price: 210000, desc: 'Smoky Amber & Intense Leather', size: '50ml', notes: 'Top: Cardamom • Heart: Rich Leather • Base: Smoky Oud', img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=500&q=80' },
-      { id: 'M02', name: 'Blue Sea', category: 'men', price: 190000, desc: 'Fresh Aquatic & Citrus Breeze', size: '50ml', notes: 'Top: Sea Salt Lemon • Heart: Sage • Base: Cedarwood', img: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=500&q=80' },
-      { id: 'M03', name: 'Billionaire', category: 'men', price: 225000, desc: 'Rich Woody & Gold Spices', size: '50ml', notes: 'Top: Blood Mandarin • Heart: Cinnamon Spices • Base: Patchouli', img: 'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=500&q=80' },
+    // =========================================================================
+    // CMS SETTINGS (Variabel Utama yang akan diatur dari Panel CMS)
+    // =========================================================================
+    const cmsSettings = {
+      waNumber: "6281222112100", 
+      waGreeting: "Halo Admin ELPAR, saya ingin memesan parfum berikut:%0A%0A",
+      waFooter: "%0AMohon infokan total ongkirnya ya. Terima kasih!",
+      defaultLang: "ID"
+    };
 
-      { id: 'U01', name: 'Summer Collection', category: 'unisex', price: 180000, desc: 'Fresh Citrus & Light Musk', size: '50ml', notes: 'Top: Grapefruit • Heart: Lotus Flower • Base: Soft Musk', img: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=500&q=80' },
-      { id: 'U02', name: 'Pinky', category: 'unisex', price: 175000, desc: 'Soft Floral & Clean Cotton', size: '50ml', notes: 'Top: Clean Linen • Heart: Peony • Base: Sandalwood', img: 'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=500&q=80' }
+    // --- Data Produk dengan Varian Ukuran (ML) ---
+    const productsData = [
+      { 
+        id: 'W01', name: 'Wonderose', category: 'women', desc: 'Sweet Rose & Romantic Floral', notes: 'Top: Pink Pepper • Base: White Musk', img: 'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=500&q=80',
+        variants: [ { size: '30ml', price: 125000 }, { size: '50ml', price: 185000 } ]
+      },
+      { 
+        id: 'W02', name: 'Baby Love', category: 'women', desc: 'Soft Powder & Vanilla Love', notes: 'Top: Bergamot • Base: Vanilla', img: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=500&q=80',
+        variants: [ { size: '30ml', price: 115000 }, { size: '50ml', price: 175000 } ]
+      },
+      { 
+        id: 'M01', name: 'Black Series', category: 'men', desc: 'Smoky Amber & Intense Leather', notes: 'Top: Cardamom • Base: Smoky Oud', img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=500&q=80',
+        variants: [ { size: '30ml', price: 150000 }, { size: '50ml', price: 210000 } ]
+      },
+      { 
+        id: 'M02', name: 'Blue Sea', category: 'men', desc: 'Fresh Aquatic & Citrus', notes: 'Top: Sea Salt • Base: Cedarwood', img: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=500&q=80',
+        variants: [ { size: '30ml', price: 140000 }, { size: '50ml', price: 190000 } ]
+      },
+      { 
+        id: 'U01', name: 'Summer Collection', category: 'unisex', desc: 'Fresh Citrus & Light Musk', notes: 'Top: Grapefruit • Base: Soft Musk', img: 'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=500&q=80',
+        variants: [ { size: '30ml', price: 130000 }, { size: '50ml', price: 180000 } ]
+      }
     ];
 
     let cartState = [];
+    let currentSelectedProduct = null;
+    let currentSelectedVariant = null;
 
     // --- Helpers ---
-    function formatRupiah(number) {
-      return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(number);
-    }
-
+    function formatRupiah(number) { return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(number); }
     function showToast(msg) {
       const toast = document.getElementById('toast-notification');
       document.getElementById('toast-message').innerText = msg;
       toast.classList.remove('opacity-0', 'pointer-events-none');
       setTimeout(() => toast.classList.add('opacity-0', 'pointer-events-none'), 2500);
     }
+    function scrollCarousel(id, offset) { document.getElementById(id)?.scrollBy({ left: offset, behavior: 'smooth' }); }
 
-    function scrollCarousel(id, offset) {
-      document.getElementById(id)?.scrollBy({ left: offset, behavior: 'smooth' });
-    }
-
-    // --- Theme Toggle ---
+    // --- Theme & Language ---
     const htmlEl = document.documentElement;
-    const themeIcon = document.getElementById('theme-icon');
     document.getElementById('theme-toggle').addEventListener('click', () => {
       htmlEl.classList.toggle('dark');
-      themeIcon.innerText = htmlEl.classList.contains('dark') ? 'light_mode' : 'dark_mode';
+      document.getElementById('theme-icon').innerText = htmlEl.classList.contains('dark') ? 'light_mode' : 'dark_mode';
+    });
+    function toggleLanguage() {
+      cmsSettings.defaultLang = cmsSettings.defaultLang === 'ID' ? 'EN' : 'ID';
+      document.getElementById('lang-indicator').innerText = cmsSettings.defaultLang === 'ID' ? 'ID 🇮🇩' : 'EN 🇬🇧';
+      showToast(`Bahasa diubah ke ${cmsSettings.defaultLang}`);
+    }
+
+    // --- Pop-ups Toggles (Modals Standard) ---
+    function openModal(id, contentId) {
+      document.getElementById(id).classList.remove('opacity-0', 'pointer-events-none');
+      document.getElementById(contentId).classList.remove('scale-95');
+    }
+    function closeModal(id, contentId) {
+      document.getElementById(id).classList.add('opacity-0', 'pointer-events-none');
+      document.getElementById(contentId).classList.add('scale-95');
+    }
+
+    // Welcome Pop-up
+    setTimeout(() => openModal('welcome-modal', 'welcome-content'), 1500);
+    document.getElementById('close-welcome-btn').addEventListener('click', () => closeModal('welcome-modal', 'welcome-content'));
+    document.getElementById('welcome-backdrop').addEventListener('click', () => closeModal('welcome-modal', 'welcome-content'));
+    function copyPromo() { navigator.clipboard.writeText('ELPARHYPE'); showToast('Kode disalin!'); closeModal('welcome-modal', 'welcome-content'); }
+
+    // Scent Quiz
+    document.getElementById('open-quiz-btn').addEventListener('click', () => openModal('quiz-modal', 'quiz-content'));
+    document.getElementById('close-quiz-btn').addEventListener('click', () => closeModal('quiz-modal', 'quiz-content'));
+    document.getElementById('quiz-backdrop').addEventListener('click', () => closeModal('quiz-modal', 'quiz-content'));
+    function selectQuizAnswer(name) { closeModal('quiz-modal', 'quiz-content'); showToast(`Rekomendasi Anda: ${name}`); }
+
+    // Reseller
+    document.getElementById('open-reseller-modal').addEventListener('click', () => openModal('reseller-modal', 'reseller-content'));
+    document.getElementById('close-reseller-modal').addEventListener('click', () => closeModal('reseller-modal', 'reseller-content'));
+    document.getElementById('reseller-modal-backdrop').addEventListener('click', () => closeModal('reseller-modal', 'reseller-content'));
+    document.getElementById('reseller-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = `Halo Admin, Daftar Reseller:%0ANama: ${e.target[0].value}%0AHP: ${e.target[1].value}%0AKota: ${e.target[2].value}%0APesan: ${e.target[3].value}`;
+      window.open(`https://wa.me/${cmsSettings.waNumber}?text=${text}`, '_blank');
+      closeModal('reseller-modal', 'reseller-content');
     });
 
-    // --- Welcome Pop-up ---
-    setTimeout(() => {
-      document.getElementById('welcome-modal').classList.remove('opacity-0', 'pointer-events-none');
-      document.getElementById('welcome-content').classList.remove('scale-95');
-    }, 1500);
-    function closeWelcome() {
-      document.getElementById('welcome-modal').classList.add('opacity-0', 'pointer-events-none');
-      document.getElementById('welcome-content').classList.add('scale-95');
-    }
-    document.getElementById('close-welcome-btn').addEventListener('click', closeWelcome);
-    document.getElementById('welcome-backdrop').addEventListener('click', closeWelcome);
-    function copyPromo() {
-      navigator.clipboard.writeText('ELPARHYPE');
-      showToast('Kode ELPARHYPE disalin!');
-      closeWelcome();
-    }
-
-    // --- Rendering Produk ---
+    // --- Rendering Produk Katalog ---
     function renderProducts() {
-      const containers = {
-        women: document.getElementById('carousel-women'),
-        men: document.getElementById('carousel-men'),
-        unisex: document.getElementById('carousel-unisex')
-      };
-      
+      const containers = { women: document.getElementById('carousel-women'), men: document.getElementById('carousel-men'), unisex: document.getElementById('carousel-unisex') };
       Object.values(containers).forEach(c => c && (c.innerHTML = ''));
 
       productsData.forEach(prod => {
+        const startPrice = prod.variants[0].price; // Harga terendah
         const cardHTML = `
           <div class="snap-start shrink-0 w-[220px] rounded-xl bg-surface-container p-3 flex flex-col gap-2 border border-outline/10 shadow-md transition-transform hover:scale-[1.02]">
             <div class="relative w-full aspect-[4/5] rounded-lg overflow-hidden bg-surface-container-low cursor-pointer" onclick="openProductDetail('${prod.id}')">
-              <img src="${prod.img}" alt="${prod.name}" class="w-full h-full object-cover transition-transform hover:scale-110 duration-500"/>
+              <img src="${prod.img}" class="w-full h-full object-cover transition-transform hover:scale-110 duration-500"/>
             </div>
             <div class="flex flex-col gap-1 cursor-pointer" onclick="openProductDetail('${prod.id}')">
-              <h3 class="font-serif text-base text-on-surface font-bold truncate">${prod.name}</h3>
+              <h3 class="font-serif text-base font-bold truncate">${prod.name}</h3>
               <p class="text-[11px] text-on-surface-variant line-clamp-1">${prod.desc}</p>
-              <span class="text-sm font-bold text-primary mt-1">${formatRupiah(prod.price)}</span>
+              <span class="text-sm font-bold text-primary mt-1">Mulai ${formatRupiah(startPrice)}</span>
             </div>
-            <button onclick="addToCart('${prod.id}')" class="w-full h-9 mt-1 rounded-lg bg-wa-green text-black text-xs font-bold uppercase tracking-wider active:scale-95 transition-transform flex items-center justify-center gap-1 shadow-sm hover:bg-[#1ebd5a]">
-              <span class="material-symbols-outlined text-[16px]">add_shopping_cart</span> Beli
+            <button onclick="openProductDetail('${prod.id}')" class="w-full h-9 mt-1 rounded-lg bg-surface-container-high text-on-surface text-xs font-bold uppercase active:scale-95 border border-outline/20">
+              Pilih Ukuran
             </button>
           </div>
         `;
-        if (containers[prod.category]) {
-          containers[prod.category].innerHTML += cardHTML;
-        }
+        if (containers[prod.category]) containers[prod.category].innerHTML += cardHTML;
       });
     }
 
-    // --- Product Detail Pop-up Logic ---
-    const detailModal = document.getElementById('product-detail-modal');
-    const detailContent = document.getElementById('product-detail-content');
-
+    // --- Detail Pop-up Produk (Pilihan ML) ---
     function openProductDetail(id) {
       const prod = productsData.find(p => p.id === id);
       if(!prod) return;
 
+      currentSelectedProduct = prod;
+      currentSelectedVariant = prod.variants[0]; // Set default variant pertama (misal 30ml)
+
       document.getElementById('detail-img').src = prod.img;
       document.getElementById('detail-title').innerText = prod.name;
       document.getElementById('detail-category').innerText = `${prod.category} Series`;
-      document.getElementById('detail-size').innerText = prod.size;
       document.getElementById('detail-desc').innerText = prod.desc;
       document.getElementById('detail-notes').innerText = prod.notes;
-      document.getElementById('detail-price').innerText = formatRupiah(prod.price);
       
-      document.getElementById('detail-add-btn').onclick = () => {
-        addToCart(prod.id);
-        closeProductDetail();
-      };
-
-      detailModal.classList.remove('opacity-0', 'pointer-events-none');
-      detailContent.classList.remove('scale-95');
+      renderVariantButtons();
+      openModal('product-detail-modal', 'product-detail-content');
     }
 
-    function closeProductDetail() {
-      detailModal.classList.add('opacity-0', 'pointer-events-none');
-      detailContent.classList.add('scale-95');
+    function renderVariantButtons() {
+      const container = document.getElementById('detail-variants-container');
+      container.innerHTML = '';
+      currentSelectedProduct.variants.forEach(variant => {
+        const isSelected = variant.size === currentSelectedVariant.size;
+        const btnClass = isSelected ? 'bg-primary text-on-primary font-bold border-primary shadow-lg' : 'bg-surface-container-low text-on-surface-variant border-outline/20 hover:border-primary/50';
+        container.innerHTML += `
+          <button onclick="selectVariant('${variant.size}')" class="px-5 py-2 rounded-lg text-xs uppercase border transition-all ${btnClass}">
+            ${variant.size}
+          </button>
+        `;
+      });
+      document.getElementById('detail-price').innerText = formatRupiah(currentSelectedVariant.price);
     }
 
-    document.getElementById('close-detail-btn').addEventListener('click', closeProductDetail);
-    document.getElementById('product-detail-backdrop').addEventListener('click', closeProductDetail);
+    function selectVariant(size) {
+      currentSelectedVariant = currentSelectedProduct.variants.find(v => v.size === size);
+      renderVariantButtons();
+    }
 
+    document.getElementById('detail-add-btn').addEventListener('click', () => {
+      addToCart(currentSelectedProduct, currentSelectedVariant);
+      closeModal('product-detail-modal', 'product-detail-content');
+    });
 
-    // --- Cart Logic ---
-    function addToCart(id) {
-      const prod = productsData.find(p => p.id === id);
-      if(!prod) return;
-      const existing = cartState.find(item => item.id === id);
-      if(existing) existing.qty += 1;
-      else cartState.push({ ...prod, qty: 1 });
-      
+    document.getElementById('close-detail-btn').addEventListener('click', () => closeModal('product-detail-modal', 'product-detail-content'));
+    document.getElementById('product-detail-backdrop').addEventListener('click', () => closeModal('product-detail-modal', 'product-detail-content'));
+
+    // --- Logika Keranjang (Dengan Varian Ukuran) ---
+    function addToCart(prod, variant) {
+      const cartItemId = `${prod.id}-${variant.size}`; // Unique ID untuk cart
+      const existing = cartState.find(item => item.cartId === cartItemId);
+      if(existing) {
+        existing.qty += 1;
+      } else {
+        cartState.push({ cartId: cartItemId, name: prod.name, img: prod.img, size: variant.size, price: variant.price, qty: 1 });
+      }
       updateCartUI();
-      showToast(`${prod.name} ditambahkan!`);
-      openCart();
+      showToast(`${prod.name} (${variant.size}) ditambah!`);
+      openDrawerCart();
     }
 
     function updateCartUI() {
       const listContainer = document.getElementById('cart-items-list');
-      const badgeCount = document.getElementById('cart-badge-count');
-      const subtotalEl = document.getElementById('cart-subtotal');
-      const emptyState = `<div class="flex flex-col items-center justify-center h-full text-center text-on-surface-variant opacity-70" id="empty-cart-state"><span class="material-symbols-outlined text-[64px] mb-2">production_quantity_limits</span><p class="font-bold text-sm">Keranjang kosong.</p><p class="text-xs">Yuk, temukan parfum favorit Anda!</p></div>`;
-      
-      if (!listContainer) return;
-
       if (cartState.length === 0) {
-        listContainer.innerHTML = emptyState;
-        badgeCount.innerText = "0";
-        subtotalEl.innerText = "Rp 0";
+        listContainer.innerHTML = `<div class="flex flex-col items-center justify-center h-full text-on-surface-variant opacity-70"><span class="material-symbols-outlined text-[64px] mb-2">production_quantity_limits</span><p class="font-bold">Keranjang kosong.</p></div>`;
+        document.getElementById('cart-badge-count').innerText = "0";
+        document.getElementById('cart-subtotal').innerText = "Rp 0";
         return;
       }
 
@@ -581,131 +616,73 @@
           <div class="p-3 rounded-xl bg-surface-container-low flex gap-3 items-center justify-between border border-outline/10 shadow-sm">
             <img src="${item.img}" class="w-14 h-16 object-cover rounded-lg"/>
             <div class="flex-1 min-w-0">
-              <h4 class="text-xs font-bold text-on-surface truncate">${item.name}</h4>
-              <p class="text-[10px] text-primary font-bold">${formatRupiah(item.price)}</p>
+              <h4 class="text-xs font-bold truncate">${item.name}</h4>
+              <p class="text-[10px] text-primary bg-primary/10 inline-block px-1.5 rounded mt-0.5">${item.size}</p>
+              <p class="text-[10px] text-on-surface font-bold mt-1">${formatRupiah(item.price)}</p>
             </div>
-            <div class="flex flex-col items-end justify-between h-full gap-2">
-              <button onclick="removeCartItem('${item.id}')" class="text-outline hover:text-red-500 transition-colors">
-                <span class="material-symbols-outlined text-[16px]">delete</span>
-              </button>
-              <div class="flex items-center gap-2 bg-surface-container-high border border-outline/20 rounded-full px-2 py-0.5">
-                <button onclick="changeQty('${item.id}', -1)" class="text-xs font-bold text-on-surface-variant">-</button>
-                <span class="text-xs font-bold text-on-surface">${item.qty}</span>
-                <button onclick="changeQty('${item.id}', 1)" class="text-xs font-bold text-on-surface-variant">+</button>
+            <div class="flex flex-col items-end gap-2">
+              <button onclick="removeCartItem('${item.cartId}')" class="text-outline hover:text-red-500"><span class="material-symbols-outlined text-[16px]">delete</span></button>
+              <div class="flex items-center gap-2 bg-surface-container-high rounded-full px-2 py-0.5 border border-outline/10">
+                <button onclick="changeQty('${item.cartId}', -1)" class="text-xs font-bold">-</button>
+                <span class="text-xs">${item.qty}</span>
+                <button onclick="changeQty('${item.cartId}', 1)" class="text-xs font-bold">+</button>
               </div>
             </div>
           </div>
         `;
       });
-
-      badgeCount.innerText = totalQty;
-      subtotalEl.innerText = formatRupiah(totalPrice);
+      document.getElementById('cart-badge-count').innerText = totalQty;
+      document.getElementById('cart-subtotal').innerText = formatRupiah(totalPrice);
     }
 
-    function changeQty(id, delta) {
-      const item = cartState.find(i => i.id === id);
-      if(item) {
-        item.qty += delta;
-        if(item.qty <= 0) cartState = cartState.filter(i => i.id !== id);
-      }
+    function changeQty(cartId, delta) {
+      const item = cartState.find(i => i.cartId === cartId);
+      if(item) { item.qty += delta; if(item.qty <= 0) cartState = cartState.filter(i => i.cartId !== cartId); }
       updateCartUI();
     }
-    function removeCartItem(id) {
-      cartState = cartState.filter(i => i.id !== id);
-      updateCartUI();
-    }
+    function removeCartItem(cartId) { cartState = cartState.filter(i => i.cartId !== cartId); updateCartUI(); }
 
-    // --- Scent Finder Filter ---
-    function filterCategory(cat, btnElement) {
-      document.querySelectorAll('.filter-tag').forEach(btn => {
-        btn.classList.remove('bg-primary', 'text-on-primary');
-        btn.classList.add('bg-surface-container', 'text-on-surface');
-      });
-      btnElement.classList.remove('bg-surface-container', 'text-on-surface');
-      btnElement.classList.add('bg-primary', 'text-on-primary');
-
-      document.querySelectorAll('.category-section').forEach(sec => {
-        sec.style.display = (cat === 'all' || sec.dataset.cat === cat) ? 'block' : 'none';
-      });
-    }
-
-    // --- Modals & Drawers Toggles ---
-    function openCart() {
-      document.getElementById('cart-drawer-container')?.classList.remove('opacity-0', 'pointer-events-none');
-      document.getElementById('cart-panel')?.classList.remove('translate-x-full');
-    }
-    function closeCart() {
-      document.getElementById('cart-drawer-container')?.classList.add('opacity-0', 'pointer-events-none');
-      document.getElementById('cart-panel')?.classList.add('translate-x-full');
-    }
-
-    document.getElementById('open-cart-header')?.addEventListener('click', (e) => { e.preventDefault(); openCart(); });
-    document.getElementById('close-cart-btn')?.addEventListener('click', closeCart);
-    document.getElementById('cart-backdrop')?.addEventListener('click', closeCart);
-
-    // Menu Mobile
-    const menuDrawer = document.getElementById('menu-drawer');
-    document.getElementById('drawer-toggle')?.addEventListener('click', () => {
-      menuDrawer?.classList.remove('opacity-0', 'pointer-events-none');
-      menuDrawer?.querySelector('nav')?.classList.remove('-translate-x-full');
-    });
-    function closeMenuDrawer() {
-      menuDrawer?.classList.add('opacity-0', 'pointer-events-none');
-      menuDrawer?.querySelector('nav')?.classList.add('-translate-x-full');
-    }
-    document.getElementById('drawer-close')?.addEventListener('click', closeMenuDrawer);
-    document.getElementById('drawer-backdrop')?.addEventListener('click', closeMenuDrawer);
-
-    // Reseller Modal
-    const resellerModal = document.getElementById('reseller-modal');
-    document.getElementById('open-reseller-modal')?.addEventListener('click', () => {
-      resellerModal.classList.remove('opacity-0', 'pointer-events-none');
-    });
-    document.getElementById('close-reseller-modal')?.addEventListener('click', () => {
-      resellerModal.classList.add('opacity-0', 'pointer-events-none');
-    });
-    document.getElementById('reseller-form')?.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const text = `Halo Admin ELPAR, Daftar Reseller:%0ANama: ${e.target[0].value}%0AHP: ${e.target[1].value}%0AKota: ${e.target[2].value}%0APesan: ${e.target[3].value}`;
-      window.open(`https://wa.me/6281222112100?text=${text}`, '_blank');
-      resellerModal.classList.add('opacity-0', 'pointer-events-none');
-    });
-
-    // Quiz Modal
-    const quizModal = document.getElementById('quiz-modal');
-    document.getElementById('open-quiz-btn')?.addEventListener('click', () => {
-      quizModal.classList.remove('opacity-0', 'pointer-events-none');
-    });
-    document.getElementById('close-quiz-btn')?.addEventListener('click', () => {
-      quizModal.classList.add('opacity-0', 'pointer-events-none');
-    });
-    function selectQuizAnswer(name) {
-      quizModal.classList.add('opacity-0', 'pointer-events-none');
-      showToast(`Rekomendasi Anda: ${name}`);
-    }
-
-    // --- WhatsApp Checkout ---
-    document.getElementById('send-whatsapp-order-btn')?.addEventListener('click', () => {
+    // --- Integrasi WhatsApp Checkout via CMS Variabel ---
+    document.getElementById('send-whatsapp-order-btn').addEventListener('click', () => {
       if(cartState.length === 0) return alert('Keranjang Anda kosong!');
-      let order = "Halo ELPAR Admin, pesanan saya:%0A%0A";
+      
+      let orderText = cmsSettings.waGreeting;
       let total = 0;
+      
       cartState.forEach(i => {
-        order += `- ${i.name} (${i.qty}x) = ${formatRupiah(i.price * i.qty)}%0A`;
+        // Format di WA: - Nama Produk [Ukuran] (Qtyx) = Harga
+        orderText += `- ${i.name} [${i.size}] (${i.qty}x) = ${formatRupiah(i.price * i.qty)}%0A`;
         total += i.price * i.qty;
       });
-      order += `%0A*Total:* ${formatRupiah(total)}%0AMohon info ongkir dan pembayaran.`;
-      window.open(`https://wa.me/6281222112100?text=${order}`, '_blank');
+      
+      orderText += `%0A*Total Belanja:* ${formatRupiah(total)}`;
+      orderText += cmsSettings.waFooter;
+      
+      // Redirect ke format API resmi wa.me
+      window.open(`https://wa.me/${cmsSettings.waNumber}?text=${orderText}`, '_blank');
     });
 
-    // Language Toggle
-    let lang = 'ID';
-    function toggleLanguage() {
-      lang = lang === 'ID' ? 'EN' : 'ID';
-      document.getElementById('lang-indicator').innerText = lang === 'ID' ? 'ID 🇮🇩' : 'EN 🇬🇧';
-      showToast(`Bahasa diubah ke ${lang}`);
+    // --- Toggles UI (Drawer Mobile & Cart) ---
+    function openDrawerCart() { document.getElementById('cart-drawer-container').classList.remove('opacity-0', 'pointer-events-none'); document.getElementById('cart-panel').classList.remove('translate-x-full'); }
+    function closeDrawerCart() { document.getElementById('cart-drawer-container').classList.add('opacity-0', 'pointer-events-none'); document.getElementById('cart-panel').classList.add('translate-x-full'); }
+    document.getElementById('open-cart-header').addEventListener('click', openDrawerCart);
+    document.getElementById('close-cart-btn').addEventListener('click', closeDrawerCart);
+    document.getElementById('cart-backdrop').addEventListener('click', closeDrawerCart);
+
+    const menuDrawer = document.getElementById('menu-drawer');
+    document.getElementById('drawer-toggle').addEventListener('click', () => { menuDrawer.classList.remove('opacity-0', 'pointer-events-none'); menuDrawer.querySelector('nav').classList.remove('-translate-x-full'); });
+    function closeMenuDrawer() { menuDrawer.classList.add('opacity-0', 'pointer-events-none'); menuDrawer.querySelector('nav').classList.add('-translate-x-full'); }
+    document.getElementById('drawer-close').addEventListener('click', closeMenuDrawer);
+    document.getElementById('drawer-backdrop').addEventListener('click', closeMenuDrawer);
+
+    // --- Filter Section ---
+    function filterCategory(cat, btn) {
+      document.querySelectorAll('.filter-tag').forEach(b => { b.classList.remove('bg-primary', 'text-on-primary'); b.classList.add('bg-surface-container', 'text-on-surface'); });
+      btn.classList.add('bg-primary', 'text-on-primary'); btn.classList.remove('bg-surface-container', 'text-on-surface');
+      document.querySelectorAll('.category-section').forEach(sec => sec.style.display = (cat === 'all' || sec.dataset.cat === cat) ? 'block' : 'none');
     }
 
-    // Init
+    // Eksekusi Render Awal
     renderProducts();
     updateCartUI();
   </script>
