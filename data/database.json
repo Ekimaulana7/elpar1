@@ -9,17 +9,42 @@
     "mapsUrl": "https://maps.google.com/?q=Perum+Griya+Utami+2+B18",
     "heroTitle": "Perfume it's your identity",
     "heroSubtitle": "Aroma Mewah Asli. Ekspresikan Identitas Diri.",
-    "heroDesc": "Koleksi Eau De Parfum eksklusif dengan ketahanan tinggi. Pemesanan mudah & konsultasi langsung via WhatsApp Concierge."
+    "heroDesc": "Koleksi Eau De Parfum & Extrait De Parfum eksklusif dengan ketahanan tinggi. Pemesanan mudah & konsultasi langsung via WhatsApp Concierge."
   },
   "categories": [
-    { "id": "women", "name": "Women Series" },
-    { "id": "men", "name": "Men Series" },
-    { "id": "unisex", "name": "Unisex Series" }
+    {
+      "id": "women",
+      "name": "Women Series"
+    },
+    {
+      "id": "men",
+      "name": "Men Series"
+    },
+    {
+      "id": "unisex",
+      "name": "Unisex Series"
+    },
+    {
+      "id": "Strong",
+      "name": "Extreamly"
+    }
   ],
   "links": [
-    { "name": "Instagram Official", "url": "https://www.instagram.com/elparofficial/", "icon": "photo_camera" },
-    { "name": "Shopee Store", "url": "https://shopee.co.id/elpar", "icon": "shopping_bag" },
-    { "name": "Lazada Flagship", "url": "https://lazada.co.id", "icon": "storefront" }
+    {
+      "name": "Instagram Official",
+      "url": "https://www.instagram.com/elparofficial/",
+      "icon": "photo_camera"
+    },
+    {
+      "name": "Shopee Store",
+      "url": "https://shopee.co.id/elpar",
+      "icon": "shopping_bag"
+    },
+    {
+      "name": "Lazada Flagship",
+      "url": "https://lazada.co.id",
+      "icon": "storefront"
+    }
   ],
   "campaigns": [
     {
@@ -34,9 +59,22 @@
   "quiz": {
     "question": "Pilih Sensasi Aroma Impian Anda:",
     "options": [
-      { "label": "Manis & Floral (Romantis)", "targetCategory": "women" },
-      { "label": "Maskulin & Woody (Kuat)", "targetCategory": "men" },
-      { "label": "Segar & Aquatic (Clean)", "targetCategory": "unisex" }
+      {
+        "label": "Manis & Floral (Romantis)",
+        "targetCategory": "women"
+      },
+      {
+        "label": "Maskulin & Woody (Kuat)",
+        "targetCategory": "men"
+      },
+      {
+        "label": "Segar & Aquatic (Clean)",
+        "targetCategory": "unisex"
+      },
+      {
+        "label": "Strong & Musk",
+        "targetCategory": "Extreamly"
+      }
     ]
   },
   "products": []
