@@ -7,51 +7,37 @@
     "waFooter": "%0AMohon info ongkir ya. Terima kasih!",
     "address": "Perum Griya Utami 2 B18",
     "mapsUrl": "https://maps.google.com/?q=Perum+Griya+Utami+2+B18",
-    "instagram": "https://www.instagram.com/elparofficial/",
-    "shopee": "https://shopee.co.id/elpar",
-    "tokopedia": "",
-    "tiktok": ""
+    "heroTitle": "Perfume it's your identity",
+    "heroSubtitle": "Aroma Mewah Asli. Ekspresikan Identitas Diri.",
+    "heroDesc": "Koleksi Eau De Parfum eksklusif dengan ketahanan tinggi. Pemesanan mudah & konsultasi langsung via WhatsApp Concierge."
   },
-  "promo": {
-    "active": true,
-    "title": "GRAND OPENING!",
-    "desc": "Dapatkan penawaran spesial untuk pembelian perdana Anda.",
-    "voucher": "ELPARHYPEBanget"
-  },
-  "products": [
+  "categories": [
+    { "id": "women", "name": "Women Series" },
+    { "id": "men", "name": "Men Series" },
+    { "id": "unisex", "name": "Unisex Series" }
+  ],
+  "links": [
+    { "name": "Instagram Official", "url": "https://www.instagram.com/elparofficial/", "icon": "photo_camera" },
+    { "name": "Shopee Store", "url": "https://shopee.co.id/elpar", "icon": "shopping_bag" },
+    { "name": "Lazada Flagship", "url": "https://lazada.co.id", "icon": "storefront" }
+  ],
+  "campaigns": [
     {
-      "id": "P1791567089359",
+      "id": "c1",
       "active": true,
-      "name": "Scandalaus",
-      "category": "unisex",
-      "desc": "Seger Manis",
-      "notes": "Gula",
-      "img": "https://raw.githubusercontent.com/Ekimaulana7/elpar1/main/data/images/1791567092581_gaultierdivineelixirwomanparfum100ml.jpg",
-      "variants": [
-        {
-          "size": "30ml",
-          "price": 154000
-        }
-      ]
-    },
-    {
-      "id": "P1791567120029",
-      "active": true,
-      "name": "Black Musk",
-      "category": "men",
-      "desc": "Strong, Woody",
-      "notes": "Musk",
-      "img": "https://raw.githubusercontent.com/Ekimaulana7/elpar1/main/data/images/1791567122675_sg1113420122110y3uhr3qayzjvc5.jpg",
-      "variants": [
-        {
-          "size": "100ml",
-          "price": 1500000
-        },
-        {
-          "size": "50",
-          "price": 500000
-        }
-      ]
+      "title": "GRAND OPENING!",
+      "desc": "Dapatkan penawaran spesial untuk pembelian perdana Anda.",
+      "voucher": "ELPARHYPE",
+      "img": ""
     }
-  ]
+  ],
+  "quiz": {
+    "question": "Pilih Sensasi Aroma Impian Anda:",
+    "options": [
+      { "label": "Manis & Floral (Romantis)", "targetCategory": "women" },
+      { "label": "Maskulin & Woody (Kuat)", "targetCategory": "men" },
+      { "label": "Segar & Aquatic (Clean)", "targetCategory": "unisex" }
+    ]
+  },
+  "products": []
 }
