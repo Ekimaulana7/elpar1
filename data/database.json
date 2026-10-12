@@ -49,11 +49,19 @@
   "campaigns": [
     {
       "id": "c1",
-      "active": true,
+      "active": false,
       "title": "GRAND OPENING!",
       "desc": "Dapatkan penawaran spesial untuk pembelian perdana Anda.",
       "voucher": "ELPARHYPE",
       "img": ""
+    },
+    {
+      "id": "C1791785538915",
+      "active": true,
+      "title": "Grandopening",
+      "desc": "",
+      "voucher": "",
+      "img": "https://raw.githubusercontent.com/ekimaulana7/elpar1/main/data/images/1791785553758_sg1113420122110y3uhr3qayzjvc5.jpg"
     }
   ],
   "quiz": {
@@ -77,5 +85,21 @@
       }
     ]
   },
-  "products": []
+  "products": [
+    {
+      "id": "P1791785498992",
+      "active": true,
+      "name": "Black Musk",
+      "category": "women",
+      "desc": "Sweetness",
+      "notes": "musk",
+      "img": "https://raw.githubusercontent.com/ekimaulana7/elpar1/main/data/images/1791785503841_gaultierdivineelixirwomanparfum100ml.jpg",
+      "variants": [
+        {
+          "size": "30ml",
+          "price": 1000
+        }
+      ]
+    }
+  ]
 }
